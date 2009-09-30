@@ -210,7 +210,8 @@ tnt_twitter = {
 	flickr_api_key: '2a9d986b3c683b9cf4ecb69b0e80f8f8',
 	flickr_secret: '46b0b3c471dbd5f8',
 	yui_group_pipe: 'http://pipes.yahoo.com/pipes/pipe.run?_id=PHxWv2ch3hG2BNL2DYSbGg&_render=json&users=',
-	ajax_queue: [],
+	ajax_q: [],
+	ajax_q_timeout: null,
 	ajax_tmp: {},
 	tweet_q:[],
 	tweet_q_timeout:null,
@@ -415,31 +416,6 @@ tnt_twitter = {
 		},2000);
 		*/
 		
-		window.setInterval(function(){
-			if( tnt_twitter.ajax_queue.length > 0 )
-			{
-				var threads = 4;
-				//console.log('before')
-				//console.log(tnt_twitter.ajax_queue);
-				while( ajax_obj = tnt_twitter.ajax_queue.shift())
-				{
-					//console.log(ajax_obj)
-					ajax_obj['User-agent'] = 'Mozilla/4.0 (Compatible) @troynt Greasemonkey Script';
-					ajax_obj['method'] = ajax_obj['method'] || 'GET';
-					
-					if( tnt_twitter.ajax_tmp[ajax_obj.url] )
-					{
-						//console.log('found '+ ajax_obj.url+' in tmp cache')
-						ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
-					}
-					else GM_xmlhttpRequest(ajax_obj);
-					
-					if( --threads == 0 || tnt_twitter.ajax_queue.length == 0 ) break;
-				};
-				//console.log('after')
-				//console.log(tnt_twitter.ajax_queue);
-			}
-		},500);
 			
 		tnt_twitter.add_settings();
 		
@@ -509,13 +485,15 @@ tnt_twitter = {
 		var len = tnt_twitter.tweet_q.length;
 		if( len == 0 ) return;
 		
+		var rate = 4;
+		
 		var tmp = tnt_twitter.tweet_q;
-		if( len > 2 )
+		if( len > rate )
 		{
-			tmp = tnt_twitter.tweet_q.slice(0,2);
-			tnt_twitter.tweet_q = tnt_twitter.tweet_q.slice(2);
+			tmp = tnt_twitter.tweet_q.slice(0,rate);
+			tnt_twitter.tweet_q = tnt_twitter.tweet_q.slice(rate);
 			clearTimeout(tnt_twitter.tweet_q_timeout);
-			tnt_twitter.tweet_q_timeout = setTimeout('tnt_twitter.tweet_process_q()',2000);
+			tnt_twitter.tweet_q_timeout = setTimeout(tnt_twitter.tweet_process_q,2000);
 		}
 		
 		$.each(tmp,function(i,tweet){
@@ -524,7 +502,6 @@ tnt_twitter = {
 	},
 	ajax:function(ajax_obj)
 	{
-		
 		if( tnt_twitter.ajax_tmp[ajax_obj.url] )
 		{
 			//console.log('found '+ ajax_obj.url+' in tmp cache')
@@ -533,9 +510,41 @@ tnt_twitter = {
 		else
 		{
 			ajax_obj['onload'] = function(resp){ tnt_twitter.ajax_tmp[ajax_obj.url] = resp; ajax_obj.callback(resp); }
-			tnt_twitter.ajax_queue.push(ajax_obj);
+			tnt_twitter.ajax_q.push(ajax_obj);
+			clearTimeout(tnt_twitter.ajax_q_timeout);
+			tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()',2000);
 		}
-		
+	},
+	ajax_process_q:function(){
+		if( tnt_twitter.ajax_q.length > 0 )
+		{
+			var threads = 4;
+			//console.log('before')
+			//console.log(tnt_twitter.ajax_q);
+			while( ajax_obj = tnt_twitter.ajax_q.shift())
+			{
+				//console.log(ajax_obj)
+				ajax_obj['User-agent'] = 'Mozilla/4.0 (Compatible) @troynt Greasemonkey Script';
+				ajax_obj['method'] = ajax_obj['method'] || 'GET';
+				
+				if( tnt_twitter.ajax_tmp[ajax_obj.url] )
+				{
+					//console.log('found '+ ajax_obj.url+' in tmp cache')
+					ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
+				}
+				else setTimeout(function(){ GM_xmlhttpRequest(ajax_obj);},0);
+				
+				if( --threads == 0 || tnt_twitter.ajax_q.length == 0 ) break;
+			};
+			
+			//console.log('after')
+			//console.log(tnt_twitter.ajax_q);
+			if (tnt_twitter.ajax_q.length > 0)
+			{
+				clearTimeout(tnt_twitter.ajax_q_timeout);
+				tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()', 2000);
+			}
+		}
 	},
 	run_livequery:function(){
 		$.livequery && $.livequery.run();
@@ -803,7 +812,7 @@ tnt_twitter = {
 	 */
 	profile_local_time:function()
 	{
-		tnt_twitter.ajax_queue.push({
+		tnt_twitter.ajax_q.push({
 			method: "GET",
 			url: 'http://whattimeisitthere.herokugarden.com/time_now/search?q='+ encodeURIComponent($('#profile .adr').text()),
 			callback: function(resp)
@@ -2082,7 +2091,7 @@ tnt_twitter = {
 				});
 			}
 			window.setTimeout(function(){
-				tnt_twitter.ajax_queue.push(options);
+				tnt_twitter.ajax_q.push(options);
 			},0);
 		}
 	}
