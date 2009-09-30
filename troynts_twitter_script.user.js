@@ -212,6 +212,8 @@ tnt_twitter = {
 	yui_group_pipe: 'http://pipes.yahoo.com/pipes/pipe.run?_id=PHxWv2ch3hG2BNL2DYSbGg&_render=json&users=',
 	ajax_queue: [],
 	ajax_tmp: {},
+	tweet_q:[],
+	tweet_q_timeout:null,
 	twitter_url: window.parent.document.location.protocol + '//twitter.com',
 	help:{
 		settings:{			
@@ -362,8 +364,6 @@ tnt_twitter = {
 		if( tnt_twitter.can('hide_twitter_defs') )
 			css += '#side .promotion { display:none; }'
 		
-		$('.hentry,#permalink,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
-		
 		GM_addStyle(css);
 		if ($.livequery) {
 			$('.search-link').livequery('click', function(){
@@ -372,6 +372,19 @@ tnt_twitter = {
 			});
 		}
 		
+		var $tweets = $('.hentry,#permalink,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
+		
+		
+		var $timeline = $('#timeline');
+		$tweets.each(function(){
+			tnt_twitter.tweet_add_to_q(this)
+		})
+
+		$timeline.bind('DOMNodeInserted',function(e){
+			if( e.target.className.match('status') )
+				tnt_twitter.tweet_add_to_q(e.target);
+		})
+		/*
 		window.setInterval(function(){
 			tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet').slice(0,2));
 			tnt_twitter.friend_process($('tr.person'));
@@ -400,6 +413,7 @@ tnt_twitter = {
 	
 			});
 		},2000);
+		*/
 		
 		window.setInterval(function(){
 			if( tnt_twitter.ajax_queue.length > 0 )
@@ -485,6 +499,28 @@ tnt_twitter = {
 		}
 		
 		tnt_twitter.tweet_process($('#permalink'));	
+	},
+	tweet_add_to_q:function(tweet){
+		tnt_twitter.tweet_q.push(tweet);
+		clearTimeout(tnt_twitter.tweet_q_timeout);
+		tnt_twitter.tweet_q_timeout = setTimeout(tnt_twitter.tweet_process_q,2000);
+	},
+	tweet_process_q:function(){
+		var len = tnt_twitter.tweet_q.length;
+		if( len == 0 ) return;
+		
+		var tmp = tnt_twitter.tweet_q;
+		if( len > 2 )
+		{
+			tmp = tnt_twitter.tweet_q.slice(0,2);
+			tnt_twitter.tweet_q = tnt_twitter.tweet_q.slice(2);
+			clearTimeout(tnt_twitter.tweet_q_timeout);
+			tnt_twitter.tweet_q_timeout = setTimeout('tnt_twitter.tweet_process_q()',2000);
+		}
+		
+		$.each(tmp,function(i,tweet){
+			tnt_twitter.tweet_process($(tweet));
+		})
 	},
 	ajax:function(ajax_obj)
 	{
