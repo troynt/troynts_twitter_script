@@ -197,13 +197,13 @@ function clickableNow_JsonP(url,callback) {
 /*
 Note: remember to 
 ADD
-flic.kr shrt.fr to short_url_domains
+j.mp, flic.kr, shrt.fr to short_url_domains
 REMOVE
 yfrog.com
 when updating
 */
 tnt_twitter = {
-	short_url_domains:'bit.ly tinyurl.com flic.kr shrt.fr 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
+	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr shrt.fr 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
 	longurl_api_url: 'http://api.longurl.org/v1/',
 	bitly_api_url: 'http://api.bit.ly/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
@@ -313,7 +313,7 @@ tnt_twitter = {
 		
 		/* make room for retweet button */
 		css += 'ol.statuses .actions { top:0; }';
-		css += 'a.tnt-retweet { background:#C3C3C3; color:#fff; padding:2px !important; margin-right:-4px; position:relative; top:2px; width:20; height:20; }';
+		css += 'a.tnt-retweet { background:#C3C3C3; text-indent:0 !important; color:#fff; padding:2px !important; margin-right:-4px; position:relative; top:2px; width:20; height:20; }';
 		css += '.actions .tnt-retweet { display:none; }';
 		css += '.hentry:hover .tnt-retweet { display:inline; }';
 		
@@ -324,7 +324,6 @@ tnt_twitter = {
 		
 		/* autocomplete */
 		css += '#auto-complete li { float:left; width:45%; }';
-
 		
 		/* tab stuff */
 		css += "li { position:relative; }";
@@ -352,8 +351,9 @@ tnt_twitter = {
 
 		/* friend icons */
 		css += '.tnt-icon { border:0 !important; margin:0 !important; padding:0 !important; }'
-		css += ".tnt-friend-icon { position:absolute; bottom:0; right:-2px;width:auto !important; height:auto !important }"
-		css += ".profile-head .tnt-friend-icon { top:65px; right:5px; }"
+		css += ".tnt-friend-icon { float:none !important; margin:0 !important; position:absolute !important; bottom:0 !important; right:-2px !important; width:auto !important; height:auto !important }"
+		css += 'h2.thumb .tnt-friend-icon { bottom:0; margin-right:10px !important; float:none !important; }'
+		css += 'h2.thumb { height:73px; }'
 		
 		/* groups */
 		css += '.tnt-groups button { padding:0; } .tnt-groups .add-group { display:block; }'
@@ -375,49 +375,20 @@ tnt_twitter = {
 			});
 		}
 		
-		var $tweets = $('.hentry,#permalink,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
-		
-		
-		var $timeline = $('#timeline');
+		var $tweets = $('.hentry,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
 		$tweets.each(function(){
 			tnt_twitter.tweet_add_to_q(this)
 		})
-
-		$timeline.bind('DOMNodeInserted',function(e){
-			if( e.target.className.match('status') )
+				
+		//bound to content because timeline gets removed when switching
+		//between search and home feed
+		var $content = $('#content');
+		$content.bind('DOMNodeInserted',function(e){
+			if (e.target.className.match('hentry'))
+			{
 				tnt_twitter.tweet_add_to_q(e.target);
-		})
-		/*
-		window.setInterval(function(){
-			tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet').slice(0,2));
-			tnt_twitter.friend_process($('tr.person'));
-			$('#saved_searches li').each(function(){
-				var $t = $(this);				
-				if( $t.find('.remove-tab').length == 0 )
-				{
-					$t.append('<a class="remove-saved-search remove-tab">[x]</a>')
-					$t.find('.remove-tab').click(function(){
-						if( !twttr.form_authenticity_token ) return false;
-						var id = $t.attr('id');
-						id = id.split('_');
-						if( id[1] )
-						{
-							id = id[1];
-							$.post('/saved_searches/destroy/'+id,{
-								twttr:true,
-								authenticity_token:twttr.form_authenticity_token
-							},function(){
-								$('#ss_'+id).remove();
-							});
-						}
-						return false;
-					});
-				}
-	
-			});
-		},2000);
-		*/
-		
+			}
+		});
 			
 		tnt_twitter.add_settings();
 		
@@ -450,14 +421,14 @@ tnt_twitter = {
 		}
 		else if( $('#profile').length == 1 )
 		{
-			var user = $.trim($('#profile .about .fn:first').text())
+			var user = tnt_twitter.profile_get_username();
 
 			$msg_link = $('#profile_actions a[href^=/direct_messages/create/]');
 			if( $msg_link.length == 1)
 			{
-				tnt_twitter.save('friend_cache',user.toLowerCase(),user,function(){
+				tnt_twitter.save('friend_cache',user,user,function(){
 					tnt_twitter.friend_show_icon(user,function(){
-						var $link = $('#profile .profile-head .thumb a');
+						var $link = $('#profile-image').parent();
 						$link.css('position','relative');
 						$link.append('<img title="'+user+' is your friend" class="tnt-friend-icon tnt-icon" src="'+tnt_twitter.icons['smiley']+'" />')				
 					});		
@@ -469,14 +440,27 @@ tnt_twitter = {
 			if( tnt_twitter.can('@user_tab') ) tnt_twitter.profile_add_mentions();
 			if( tnt_twitter.can('groups') ) tnt_twitter.profile_add_groups();
 			
-			if( tnt_twitter.can('social_links') ) tnt_twitter.profile_add_social_links();			
+			//if( tnt_twitter.can('social_links') ) tnt_twitter.profile_add_social_links();			
 			if( tnt_twitter.can('local_time') ) tnt_twitter.profile_local_time();
 			if( tnt_twitter.can('map_location') )tnt_twitter.profile_map();
 			if( tnt_twitter.can('notes') ) tnt_twitter.profile_add_notes();
-			tnt_twitter.save_username( window.location + '' );
+			tnt_twitter.save_username(user);
 		}
-		
-		tnt_twitter.tweet_process($('#permalink'));	
+		else if( $('#permalink') )
+		{
+			var $link = $('.user-info a.profile-pic');
+			var user = tnt_twitter.user_from_url($link.attr('href'));
+			tnt_twitter.friend_show_icon(user,function(){
+				var $img = $link.children('img');
+				$link.css({
+					'height':$img.height(),
+					'width':$img.width(),
+					'display':'block',
+					'position':'relative'
+				});
+				$link.append('<img title="'+user+' is your friend" class="tnt-friend-icon tnt-icon" src="'+tnt_twitter.icons['smiley']+'" />')				
+			});
+		}
 	},
 	tweet_add_to_q:function(tweet){
 		tnt_twitter.tweet_q.push(tweet);
@@ -506,14 +490,12 @@ tnt_twitter = {
 	{
 		if( tnt_twitter.ajax_tmp[ajax_obj.url] )
 		{
-			//console.log('found '+ ajax_obj.url+' in tmp cache')
 			ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
 		}
 		else
 		{
-			ajax_obj['onload'] = function(resp){ tnt_twitter.ajax_tmp[ajax_obj.url] = resp; ajax_obj.callback(resp); }
+			ajax_obj['onload'] = function(resp){ tnt_twitter.ajax_tmp[ajax_obj.url] = resp; tnt_twitter.ajax(ajax_obj); }
 			tnt_twitter.ajax_q.push(ajax_obj);
-			clearTimeout(tnt_twitter.ajax_q_timeout);
 			tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()',2000);
 		}
 	},
@@ -543,7 +525,6 @@ tnt_twitter = {
 			//console.log(tnt_twitter.ajax_q);
 			if (tnt_twitter.ajax_q.length > 0)
 			{
-				clearTimeout(tnt_twitter.ajax_q_timeout);
 				tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()', 2000);
 			}
 		}
@@ -552,18 +533,14 @@ tnt_twitter = {
 		$.livequery && $.livequery.run();
 	},
 	profile_add_groups:function(){
-		var user = $('meta[name=page-user-screen_name]');
-		if( user.length != 1 ) return;
-		user = user.attr('content');
+		var user = tnt_twitter.profile_get_username();
 		
 		tnt_twitter.group_control(user,function($group_control){
 			$('.profile-side:first').after($group_control.addClass('profile-side').addClass('section'));
 		});
 	},
 	profile_add_mentions:function(){
-		var user = $('meta[name=page-user-screen_name]');
-		if( user.length != 1 ) return;
-		user = user.attr('content');
+		var user = tnt_twitter.profile_get_username();
 		
 		tnt_twitter.add_tab(function($tab){
 			$('#primary_nav li:first').before($tab);
@@ -624,26 +601,28 @@ tnt_twitter = {
 		if( typeof user != 'string' || !tnt_twitter.can('friend_icons') || typeof callback != "function" ) return false;
 
 		user = user.toLowerCase();
+		if( user.indexOf(' ') > -1 )
+		{
+			console.log('user  "'+ user + '" must not have spaces in name')
+		}
+		
 		if( tnt_twitter.friend_cache && tnt_twitter.friend_cache[user] ) callback()
 		else if( tnt_twitter.logged_in && tnt_twitter.user != user && !tnt_twitter.stranger_cache[user] && tnt_twitter.can('friend_icons') )
 		{
 			tnt_twitter.ajax({
 				url: tnt_twitter.twitter_url + '/'+user,
 				callback:function(resp){
-				if( resp.status != 200 ) return;
-					resp = resp.responseText;
-					$resp = $(resp);
-					$dm_link = $resp.find('.sidebar-actions a[href^=/direct_messages/create/]')
-	
-					if( $dm_link.length == 0 )
-					{
-						tnt_twitter.save('stranger_cache',user,user);
-					}
-					else
+					if( resp.status != 200 ) return;
+					
+					if( resp.responseText.match('/direct_messages/create/'+user) )
 					{
 						tnt_twitter.save('friend_cache',user,user,function(){
 							tnt_twitter.friend_show_icon(user,callback);
 						});
+					}
+					else
+					{
+						tnt_twitter.save('stranger_cache',user,user);
 					}
 				}
 			});
@@ -814,14 +793,14 @@ tnt_twitter = {
 	 */
 	profile_local_time:function()
 	{
-		tnt_twitter.ajax_q.push({
+		tnt_twitter.ajax({
 			method: "GET",
 			url: 'http://whattimeisitthere.herokugarden.com/time_now/search?q='+ encodeURIComponent($('#profile .adr').text()),
 			callback: function(resp)
 			{
-				if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
+				if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return;
 				resp = eval( '(' + resp.responseText + ')' );
-				if( resp['error'] ) return resp;
+				if( resp['error'] ) return;
 				$('#profile .adr').parent().after('<li><span class="label">Local Time</span> <span >'+ resp['local_time'] + '</span></li>')
 			}
 		});
@@ -831,9 +810,7 @@ tnt_twitter = {
 	 */
 	profile_add_notes:function()
 	{	
-		var user = $('meta[name=page-user-screen_name]');
-		if( user.length != 1 ) return;
-		user = user.attr('content').toLowerCase();
+		var user = tnt_twitter.profile_get_username();
 		
 		notes_txt = tnt_twitter.notes_cache[user];
 		if( !notes_txt ) notes_txt = 'Click to Edit';
@@ -844,6 +821,12 @@ tnt_twitter = {
 		tnt_twitter.notes_body_click($notes.find('.notes-body'));
 		$('#primary_nav').before($notes);
 	},
+	profile_get_username:function()
+	{
+		var user = $('meta[name=page-user-screen_name]');
+		if( user.length != 1 ) return;
+		return user.attr('content').toLowerCase();
+	},
 	notes_body_click:function($notes)
 	{
 		$notes.click(function(){
@@ -852,7 +835,7 @@ tnt_twitter = {
 			$('#tnt-save-notes').click(function(){
 				$notes = $(this).prev();
 				$notes.replaceWith('<pre class="notes-body">'+$notes.val()+'</pre>');
-				var user = tnt_twitter.user_from_url(window.location+'');
+				var user = tnt_twitter.profile_get_username();
 				tnt_twitter.save('notes_cache',user,$notes.val());
 				tnt_twitter.notes_body_click($(this).parent().find('.notes-body'));
 				$(this).remove();
@@ -865,7 +848,7 @@ tnt_twitter = {
 	 */
 	profile_add_social_links:function()
 	{
-		var user = tnt_twitter.user_from_url(window.location+'');
+		var user = tnt_twitter.profile_get_username();
 		
 		if( !tnt_twitter.social_link_cache[user] && false )
 		{		
@@ -1151,6 +1134,13 @@ tnt_twitter = {
 		$status.keyup(function(e){
 			$status = $('#status,#direct_messages #text');
 			var orig_update = $status.val();
+			
+			if( orig_update.indexOf('<3') > -1 )
+			{
+				orig_update = $status.val().replace('<3','♥','gi');
+				$status.val(orig_update);
+			}
+			
 			if( $status.length != 1 || orig_update.length < 140 ) return;
 					
 			// from http://userscripts.org/scripts/show/39042
@@ -1163,7 +1153,7 @@ tnt_twitter = {
 				var domain = url.replace(/https?:\/\//i,'');
 				var url_parts = domain.split('/');
 				domain = url_parts.length > 1 ? url_parts[0] : domain;
-				
+								
 				if( url.length < 20 || tnt_twitter.short_url_domains.indexOf(domain) > -1 || tnt_twitter.url_cache[url] ) continue;
 				window.setTimeout(function(){
 					GM_xmlhttpRequest({
@@ -1328,18 +1318,24 @@ tnt_twitter = {
 			$next_page_link = $('#pagination a[rel~=next]');
 			if( $next_page_link.length == 1 )
 			{
+				var orig_text = $next_page_link.text();
+				$next_page_link.text('Loading...');
 				$.get($next_page_link.attr('href'),function(resp){
+					$next_page_link.text(orig_text);
 					$resp = $(resp);
 					var $next_next_page_link = $resp.find('#pagination a[rel~=next]');
 					if( $next_next_page_link.length == 1 )
 						$next_page_link.replaceWith($next_next_page_link);
 					else
 						$next_page_link.remove();
-						
-					if( $resp.find('table.doing').length == 1 )
+					
+					var $user_list = $('#follow_grid table:first');
+					var $resp_user_list = $resp.find('#follow_grid table:first')
+					if( $user_list.length == 1 )
 					{
-						$('table.doing').append($resp.find('table.doing tr'));
-						$('table.doing .vcard').not('.processed-friend').each(function(){
+						$resp_user_list.find('tr:first').remove();
+						$user_list.append($resp_user_list.children());
+						$user_list.find('.vcard').not('.processed-friend').each(function(){
 							tnt_twitter.friend_process($(this))
 						});
 					}
@@ -1353,32 +1349,23 @@ tnt_twitter = {
 		$tweets.addClass('processed-tweet');
 		$tweets.each(function(){
 			var $tweet = $(this);
-			
+			var $content = $tweet.find('.entry-content:first,.msgtext:first');//search uses msgtext
+			var tweet_id = $tweet.attr('id');
+			var user = tnt_twitter.user_from_tweet($tweet)//single tweets don't get usernames for some reason
+						
 			if( $tweet.parent().is('#timeline') ) $tweet.addClass('root');
 			
-			//single tweets don't get usernames for some reason
-			var tweet_id = $tweet.attr('id');
-			var user = tnt_twitter.user_from_tweet($tweet)
-
-			if( tweet_id == 'permalink' )
+			if(  $tweet.hasClass('root') && $tweet.siblings().filter('#'+tweet_id).length > 0 )
 			{
-				$tweet.addClass('u-'+ user );
-			}
-			else if( $tweet.hasClass('root') )
-			{
-				if( $tweet.siblings().filter('#'+tweet_id).length > 0 )
-				{
-					$tweet.remove();
-					//console.log('removing duplicate '+tweet_id);
-				}
+				$tweet.remove();
+				console.log('removing duplicate '+tweet_id);
 			}
 
 			if( tnt_twitter.can('tweet_char_count') )
 			{
-				var $content = $tweet.find('.entry-content:first');
 				if( $content.length == 1 )
 				{
-					var length = $tweet.find('.entry-content:first').text().length;
+					var length = $content.text().length;
 					if( length > 139 )
 						length = 'twoosh!'
 					$tweet.find('.entry-meta:first').append(' ('+length + ')')	
@@ -1391,14 +1378,18 @@ tnt_twitter = {
 			else
 				$published.css('display','inline')
 			
-			$tweet.find('.entry-content:first a[rel=nofollow],.msgtxt:first a[rel=nofollow]').each(function(){
+			//expand ... on end of links
+			$content.children('a.web').each(function(){
 				$(this).text($(this).attr('href'));
 			});
 
 			tnt_twitter.tweet_add_retweet_button($tweet);
-			var reply_link = $tweet.find('.entry-meta a[href^='+tnt_twitter.twitter_url +']').not('.entry-date').filter(function(){ return $(this).text().match('^in reply to') });
-			if( reply_link.length == 1 )
-				tnt_twitter.tweet_get_reply( $tweet, reply_link.attr('href') );
+			
+			var $in_reply_to = $tweet.find('.entry-meta a').not('.entry-date').filter(function(){ return $(this).text().match('^in reply to') });
+			if ($in_reply_to.length > 0)
+			{
+				tnt_twitter.tweet_get_reply($tweet, $in_reply_to.attr('href'));
+			}
 			
 			tnt_twitter.linkify($tweet);
 			
@@ -1424,7 +1415,7 @@ tnt_twitter = {
 		try { var st_id = $tweet.find('.entry-content:first,.msgtxt:first').text().match('^([0-9]+)')[1] }
 		catch( err ){ return; }
 		
-		$tweet.find('.entry-content:first a[rel=nofollow]:last,.msgtxt:first a[rel=nofollow]:last').remove();
+		$tweet.find('.entry-content:first,.msgtxt:first').find('.web:last').remove();
 		tnt_twitter.search('@secrettweet '+ st_id +'~',function(result){
 			$.each(result.tweets,function(tweet_id,tweet){
 				tnt_twitter.tweet_load_reply(tweet,$tweet)
@@ -1478,7 +1469,8 @@ tnt_twitter = {
 	{
 		if( !tnt_twitter.can('add_retweet_button') ) return;
 		
-		$reply_btn = $tweet.find('span.actions:first .reply:first a');
+		var $actions = $tweet.find('span.actions:first');
+		$reply_btn = $actions.find('.reply:first a, a.reply:first');
 		if( $reply_btn.length != 1 ) return;
 		
 		$retweet_btn = $reply_btn.clone();
@@ -1492,7 +1484,7 @@ tnt_twitter = {
 		link[0] = '/home?'+$.param({status:'RT @'+user+' '+ content.replace("\n",'','g') })
 		link = link.join('&');
 		$retweet_btn.attr('href',link);
-		$tweet.find('span.actions:first div').append($retweet_btn);
+		$actions.append($retweet_btn);
 		
 		var $s = $('#status');
 		if( $s.length == 1 && $s.is(':visible') )
@@ -1532,9 +1524,8 @@ tnt_twitter = {
 	},
 	expand_urls:function( $tweet )
 	{
-		$tweet.find('.entry-content a').not('.expanded').each(function(){
+		$tweet.find('.entry-content a.web').not('.expanded').each(function(){
 			var $t = $(this);
-			
 			if( !$t.attr('href').match('https?://') )
 			{
 				$t.addClass('expanded');
@@ -1737,9 +1728,15 @@ tnt_twitter = {
 		var user = url.match('https?://twitter.com/([a-zA-Z0-9_]+)');
 				
 		if( user ) user = user[1];
+		user = user.toLowerCase();
 		return user;
 	},
 	status_id_from_url:function( url ){ return url.match('status(es)?/([0-9]+)')[2] },
+	
+	/**
+	 * @param {String} permalink tweet url e.g. http://twitter.com/user/status/1234
+	 * @param {Object} callback
+	 */
 	tweet_get:function(permalink,callback)
 	{
 		var status_id = tnt_twitter.status_id_from_url(permalink);
@@ -1756,7 +1753,7 @@ tnt_twitter = {
 										
 					var $resp = $(resp);
 										
-					var $tweet = $resp.find('#permalink');
+					var $tweet = $resp.find('.hentry:first');
 					var $thumb = $resp.find('.thumb');
 					var $img = $thumb.find('img:first');
 										
@@ -1770,18 +1767,17 @@ tnt_twitter = {
 						created_at: $tweet.find('.entry-date span').attr('title')
 					}
 					
-					var $in_reply_to_link = $tweet.find('.entry-meta a[href^=http://twitter.com],.entry-meta a[href^=https://twitter.com]').not('.entry-date').filter(function(){
+					var $in_reply_to_link = $tweet.find('.entry-meta a').not('.entry-date').filter(function(){
 						return $(this).text().match('^in reply to')
 					});
 					if ($in_reply_to_link.length == 1) {
 						tweet['in_reply_to_status_id'] = tnt_twitter.status_id_from_url($in_reply_to_link.attr('href'))
 						tweet['in_reply_to_screen_name'] = tnt_twitter.user_from_url($in_reply_to_link.attr('href'));
 					}
-					
-					tnt_twitter.save('tweet_cache', tweet.id, tweet);
-					
-					if (typeof callback == "function") 
-						callback(tweet);
+										
+					tnt_twitter.save('tweet_cache', tweet.id, tweet,function(){
+						tnt_twitter.tweet_get(permalink,callback);
+					});
 				}
 			});
 		}
@@ -1801,25 +1797,21 @@ tnt_twitter = {
 	},
 	/**
 	 * Append Reply to Tweet
-	 * @param {tweet} reply object containing reply data
-	 * @param {jQuery} $tweet jQuery Tweet Parent
+	 * @param {Object} reply json object containing reply data
+	 * @param {jQuery} $parent_tweet jQuery Tweet Parent
 	 */
-	tweet_load_reply:function(reply,$tweet)
+	tweet_load_reply:function(reply,$parent_tweet)
 	{
-		$root = $tweet.parents('.root');
-		if( $root.is('#status_'+ reply.id ) ||
-			$root.find('#status_'+ reply.id ).length >= 1
-		)
-		{
-			return; //no duplicates.
-		}
-		
+		//TODO: Retest this
+		//When tweet threads are greater than 5 replies collapse them
+		/*
 		if( !$root.hasClass('has-show-all-button') && $root.find('.status').length > 5 )
 		{
 			$fifth_reply = $root.find('.status:first .status:first .status:first .status:first .status:first');
 			$fifth_reply.before('<a style="display:block;" onclick="javascript:$(this).next().show().prev().remove();return false;" href="#">Show All Replies</a>').hide()
 			$root.addClass('has-show-all-button');
 		}
+		*/
 
 		var user = reply.user.screen_name;//alias
 		var img = '';
@@ -1828,20 +1820,21 @@ tnt_twitter = {
 		var klass = 'status u-'+user;
 		if( reply.in_reply_to_status_id ) klass += ' status-reply';
 		
-		var reply_html = '<div id="status_'+reply.id+'" class="'+ klass +'">'
+		var reply_id = 'reply_status_'+reply.id;
+		var reply_html = '<div id="'+reply_id+'" class="'+ klass +'">'
 		reply_html += '<span class="entry-content">'+img
-		reply_html += ' <a href="/'+ user +'">'+ user +'</a>: ' + reply.text
+		reply_html += ' <a class="tweet-url" href="/'+ user +'">'+ user +'</a>: ' + reply.text
 		reply_html += '</span><!--/.entry-content-->'
 		reply_html += '<span class="meta entry-meta" style="display:inline">'
 		reply_html += '<a rel="bookmark" class="entry-date" href="'+ tnt_twitter.twitter_url +'/'+user+'/status/'+ reply.id +'"> <span title="'+ reply.created_at +'" class="published">#</span></a>';
 		
 		if( reply.in_reply_to_status_id )
-			reply_html += ' <a style="display:none" href="'+ tnt_twitter.twitter_url +'/'+ reply.in_reply_to_screen_name +'/status/'+ reply.in_reply_to_status_id  +'">in reply to '+ reply.in_reply_to_screen_name +'</a>'
+			reply_html += ' <a href="'+ tnt_twitter.twitter_url +'/'+ reply.in_reply_to_screen_name +'/status/'+ reply.in_reply_to_status_id  +'">in reply to '+ reply.in_reply_to_screen_name +'</a>'
 		
 		reply_html += '</span><!--/.entry-meta--></div>'
-		if( $tweet.find('.status-body').length == 1 ) $tweet = $tweet.find('.status-body');
-		$tweet.append(reply_html);
-		tnt_twitter.tweet_process($tweet.find('#status_'+reply.id));
+		$reply = $(reply_html);
+		tnt_twitter.tweet_process($reply);
+		$parent_tweet.append($reply);
 	},
 	load_tweet:function(tweet)
 	{
@@ -1871,7 +1864,8 @@ tnt_twitter = {
 		tweet_html += '</div></span><!--/.actions-->'
 		tweet_html += '</li>'
 		$('#timeline').append(tweet_html);
-		tnt_twitter.tweet_process($('#status_'+tweet.id));
+		//DOMNodeInserted should take care of this for us.
+		//tnt_twitter.tweet_process($('#status_'+tweet.id)); 
 	},
 	tweet_save_args:function(status_id,user,img,text,created_at,in_reply_to_status_id,in_reply_to_user){
 		var tweet = {
@@ -1899,14 +1893,11 @@ tnt_twitter = {
 			if( typeof callback == "function" ) callback();
 		},100);
 	},
-	save_tweets:function(tweets){
-		tnt_twitter.tweet_cache = $.merge(tnt_twitter.tweet_cache,tweets);
-		window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',uneval(tnt_twitter.tweet_cache)); },0);
-	},
 	save_username:function(friend){
 		if( friend.match('twitter.com') )
 			friend = tnt_twitter.user_from_url(friend);
-		tnt_twitter.username_cache[friend] = friend
+		friend = friend.toLowerCase();
+		tnt_twitter.username_cache[friend] = friend;
 		window.setTimeout(function(){
 			GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
 		},0);
@@ -1976,6 +1967,7 @@ tnt_twitter = {
 		$.each(friends,function(idx,friend){
 			if( friend.match('twitter.com') )
 				friend = tnt_twitter.user_from_url(friend);
+			friend = friend.toLowerCase();
 			tnt_twitter.username_cache[friend] = friend;
 		});
 		window.setTimeout(function(){
@@ -2167,9 +2159,9 @@ String.prototype.linkify = function( is_plain ){
 	s = this;
 	if( is_plain )
 	{
-		s = s.replace(/(^|\s+)(https*\:\/\/\S+)/g, '$1<a target="_blank" rel="no-follow" href="$2">$2</a>'); //link
-		s = s.replace(/(^|\s+)(www\.\S+)/g, '$1<a target="_blank" rel="no-follow" href="http://$2">$2</a>'); //link
-		s = s.replace(/(^|\s+)\@(\w+)/g, '$1@<a class="expanded" href="/$2">$2</a>'); //at	
+		s = s.replace(/(^|\s+)(https*\:\/\/\S+)/g, '$1<a target="_blank" class="web tweet-url" rel="no-follow" href="$2">$2</a>'); //link
+		s = s.replace(/(^|\s+)(www\.\S+)/g, '$1<a target="_blank" class="web tweet-url" rel="no-follow" href="http://$2">$2</a>'); //link
+		s = s.replace(/(^|\s+)\@(\w+)/g, '$1@<a class="username tweet-url expanded" href="/$2">$2</a>'); //at	
 	}
 	
 	if( tnt_twitter.can('hashtags') )
