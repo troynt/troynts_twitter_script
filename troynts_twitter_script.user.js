@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.2
+// @version		10.3
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -210,11 +210,8 @@ tnt_twitter = {
 	flickr_api_key: '2a9d986b3c683b9cf4ecb69b0e80f8f8',
 	flickr_secret: '46b0b3c471dbd5f8',
 	yui_group_pipe: 'http://pipes.yahoo.com/pipes/pipe.run?_id=PHxWv2ch3hG2BNL2DYSbGg&_render=json&users=',
-	ajax_q: [],
-	ajax_q_timeout: null,
+	ajax_queue: [],
 	ajax_tmp: {},
-	tweet_q:[],
-	tweet_q_timeout:null,
 	twitter_url: window.parent.document.location.protocol + '//twitter.com',
 	help:{
 		settings:{			
@@ -367,6 +364,8 @@ tnt_twitter = {
 		if( tnt_twitter.can('hide_twitter_defs') )
 			css += '#side .promotion { display:none; }'
 		
+		$('.hentry,#permalink,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
+		
 		GM_addStyle(css);
 		if ($.livequery) {
 			$('.search-link').livequery('click', function(){
@@ -375,20 +374,35 @@ tnt_twitter = {
 			});
 		}
 		
-		var $tweets = $('.hentry,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
-		$tweets.each(function(){
-			tnt_twitter.tweet_add_to_q(this)
-		})
+		window.setInterval(function(){
+			tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet').slice(0,2));
+		},2000);
 				
-		//bound to content because timeline gets removed when switching
-		//between search and home feed
-		var $content = $('#content');
-		$content.bind('DOMNodeInserted',function(e){
-			if (e.target.className.match('hentry'))
+		window.setInterval(function(){
+			if( tnt_twitter.ajax_queue.length > 0 )
 			{
-				tnt_twitter.tweet_add_to_q(e.target);
+				var threads = 4;
+				//console.log('before')
+				//console.log(tnt_twitter.ajax_queue);
+				while( ajax_obj = tnt_twitter.ajax_queue.shift())
+				{
+					//console.log(ajax_obj)
+					ajax_obj['User-agent'] = 'Mozilla/4.0 (Compatible) @troynt Greasemonkey Script';
+					ajax_obj['method'] = ajax_obj['method'] || 'GET';
+					
+					if( tnt_twitter.ajax_tmp[ajax_obj.url] )
+					{
+						//console.log('found '+ ajax_obj.url+' in tmp cache')
+						ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
+					}
+					else GM_xmlhttpRequest(ajax_obj);
+					
+					if( --threads == 0 || tnt_twitter.ajax_queue.length == 0 ) break;
+				};
+				//console.log('after')
+				//console.log(tnt_twitter.ajax_queue);
 			}
-		});
+		},500);
 			
 		tnt_twitter.add_settings();
 		
@@ -446,88 +460,23 @@ tnt_twitter = {
 			if( tnt_twitter.can('notes') ) tnt_twitter.profile_add_notes();
 			tnt_twitter.save_username(user);
 		}
-		else if( $('#permalink') )
-		{
-			var $link = $('.user-info a.profile-pic');
-			var user = tnt_twitter.user_from_url($link.attr('href'));
-			tnt_twitter.friend_show_icon(user,function(){
-				var $img = $link.children('img');
-				$link.css({
-					'height':$img.height(),
-					'width':$img.width(),
-					'display':'block',
-					'position':'relative'
-				});
-				$link.append('<img title="'+user+' is your friend" class="tnt-friend-icon tnt-icon" src="'+tnt_twitter.icons['smiley']+'" />')				
-			});
-		}
-	},
-	tweet_add_to_q:function(tweet){
-		tnt_twitter.tweet_q.push(tweet);
-		clearTimeout(tnt_twitter.tweet_q_timeout);
-		tnt_twitter.tweet_q_timeout = setTimeout(tnt_twitter.tweet_process_q,2000);
-	},
-	tweet_process_q:function(){
-		var len = tnt_twitter.tweet_q.length;
-		if( len == 0 ) return;
 		
-		var rate = 4;
-		
-		var tmp = tnt_twitter.tweet_q;
-		if( len > rate )
-		{
-			tmp = tnt_twitter.tweet_q.slice(0,rate);
-			tnt_twitter.tweet_q = tnt_twitter.tweet_q.slice(rate);
-			clearTimeout(tnt_twitter.tweet_q_timeout);
-			tnt_twitter.tweet_q_timeout = setTimeout(tnt_twitter.tweet_process_q,2000);
-		}
-		
-		$.each(tmp,function(i,tweet){
-			tnt_twitter.tweet_process($(tweet));
-		})
+		tnt_twitter.tweet_process($('#permalink'));	
 	},
 	ajax:function(ajax_obj)
 	{
+		
 		if( tnt_twitter.ajax_tmp[ajax_obj.url] )
 		{
+			//console.log('found '+ ajax_obj.url+' in tmp cache')
 			ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
 		}
 		else
 		{
-			ajax_obj['onload'] = function(resp){ tnt_twitter.ajax_tmp[ajax_obj.url] = resp; tnt_twitter.ajax(ajax_obj); }
-			tnt_twitter.ajax_q.push(ajax_obj);
-			tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()',2000);
+			ajax_obj['onload'] = function(resp){ tnt_twitter.ajax_tmp[ajax_obj.url] = resp; ajax_obj.callback(resp); }
+			tnt_twitter.ajax_queue.push(ajax_obj);
 		}
-	},
-	ajax_process_q:function(){
-		if( tnt_twitter.ajax_q.length > 0 )
-		{
-			var threads = 4;
-			//console.log('before')
-			//console.log(tnt_twitter.ajax_q);
-			while( ajax_obj = tnt_twitter.ajax_q.shift())
-			{
-				//console.log(ajax_obj)
-				ajax_obj['User-agent'] = 'Mozilla/4.0 (Compatible) @troynt Greasemonkey Script';
-				ajax_obj['method'] = ajax_obj['method'] || 'GET';
-				
-				if( tnt_twitter.ajax_tmp[ajax_obj.url] )
-				{
-					//console.log('found '+ ajax_obj.url+' in tmp cache')
-					ajax_obj.callback(tnt_twitter.ajax_tmp[ajax_obj.url])
-				}
-				else setTimeout(function(){ GM_xmlhttpRequest(ajax_obj);},0);
-				
-				if( --threads == 0 || tnt_twitter.ajax_q.length == 0 ) break;
-			};
-			
-			//console.log('after')
-			//console.log(tnt_twitter.ajax_q);
-			if (tnt_twitter.ajax_q.length > 0)
-			{
-				tnt_twitter.ajax_q_timeout = setTimeout('tnt_twitter.ajax_process_q()', 2000);
-			}
-		}
+		
 	},
 	run_livequery:function(){
 		$.livequery && $.livequery.run();
@@ -601,11 +550,6 @@ tnt_twitter = {
 		if( typeof user != 'string' || !tnt_twitter.can('friend_icons') || typeof callback != "function" ) return false;
 
 		user = user.toLowerCase();
-		if( user.indexOf(' ') > -1 )
-		{
-			console.log('user  "'+ user + '" must not have spaces in name')
-		}
-		
 		if( tnt_twitter.friend_cache && tnt_twitter.friend_cache[user] ) callback()
 		else if( tnt_twitter.logged_in && tnt_twitter.user != user && !tnt_twitter.stranger_cache[user] && tnt_twitter.can('friend_icons') )
 		{
@@ -1334,7 +1278,7 @@ tnt_twitter = {
 					if( $user_list.length == 1 )
 					{
 						$resp_user_list.find('tr:first').remove();
-						$user_list.append($resp_user_list.children());
+						$user_list.append($resp_user_list.children().isUser());
 						$user_list.find('.vcard').not('.processed-friend').each(function(){
 							tnt_twitter.friend_process($(this))
 						});
@@ -1774,10 +1718,11 @@ tnt_twitter = {
 						tweet['in_reply_to_status_id'] = tnt_twitter.status_id_from_url($in_reply_to_link.attr('href'))
 						tweet['in_reply_to_screen_name'] = tnt_twitter.user_from_url($in_reply_to_link.attr('href'));
 					}
-										
-					tnt_twitter.save('tweet_cache', tweet.id, tweet,function(){
-						tnt_twitter.tweet_get(permalink,callback);
-					});
+					
+					tnt_twitter.save('tweet_cache', tweet.id, tweet);
+					
+					if (typeof callback == "function") 
+						callback(tweet);
 				}
 			});
 		}
@@ -1797,21 +1742,25 @@ tnt_twitter = {
 	},
 	/**
 	 * Append Reply to Tweet
-	 * @param {Object} reply json object containing reply data
-	 * @param {jQuery} $parent_tweet jQuery Tweet Parent
+	 * @param {tweet} reply object containing reply data
+	 * @param {jQuery} $tweet jQuery Tweet Parent
 	 */
-	tweet_load_reply:function(reply,$parent_tweet)
+	tweet_load_reply:function(reply,$tweet)
 	{
-		//TODO: Retest this
-		//When tweet threads are greater than 5 replies collapse them
-		/*
+		$root = $tweet.parents('.root');
+		if( $root.is('#status_'+ reply.id ) ||
+			$root.find('#status_'+ reply.id ).length >= 1
+		)
+		{
+			return; //no duplicates.
+		}
+		
 		if( !$root.hasClass('has-show-all-button') && $root.find('.status').length > 5 )
 		{
 			$fifth_reply = $root.find('.status:first .status:first .status:first .status:first .status:first');
 			$fifth_reply.before('<a style="display:block;" onclick="javascript:$(this).next().show().prev().remove();return false;" href="#">Show All Replies</a>').hide()
 			$root.addClass('has-show-all-button');
 		}
-		*/
 
 		var user = reply.user.screen_name;//alias
 		var img = '';
@@ -1820,21 +1769,20 @@ tnt_twitter = {
 		var klass = 'status u-'+user;
 		if( reply.in_reply_to_status_id ) klass += ' status-reply';
 		
-		var reply_id = 'reply_status_'+reply.id;
-		var reply_html = '<div id="'+reply_id+'" class="'+ klass +'">'
+		var reply_html = '<div id="status_'+reply.id+'" class="'+ klass +'">'
 		reply_html += '<span class="entry-content">'+img
-		reply_html += ' <a class="tweet-url" href="/'+ user +'">'+ user +'</a>: ' + reply.text
+		reply_html += ' <a href="/'+ user +'">'+ user +'</a>: ' + reply.text
 		reply_html += '</span><!--/.entry-content-->'
 		reply_html += '<span class="meta entry-meta" style="display:inline">'
 		reply_html += '<a rel="bookmark" class="entry-date" href="'+ tnt_twitter.twitter_url +'/'+user+'/status/'+ reply.id +'"> <span title="'+ reply.created_at +'" class="published">#</span></a>';
 		
 		if( reply.in_reply_to_status_id )
-			reply_html += ' <a href="'+ tnt_twitter.twitter_url +'/'+ reply.in_reply_to_screen_name +'/status/'+ reply.in_reply_to_status_id  +'">in reply to '+ reply.in_reply_to_screen_name +'</a>'
+			reply_html += ' <a style="display:none" href="'+ tnt_twitter.twitter_url +'/'+ reply.in_reply_to_screen_name +'/status/'+ reply.in_reply_to_status_id  +'">in reply to '+ reply.in_reply_to_screen_name +'</a>'
 		
 		reply_html += '</span><!--/.entry-meta--></div>'
-		$reply = $(reply_html);
-		tnt_twitter.tweet_process($reply);
-		$parent_tweet.append($reply);
+		if( $tweet.find('.status-body').length == 1 ) $tweet = $tweet.find('.status-body');
+		$tweet.append(reply_html);
+		tnt_twitter.tweet_process($tweet.find('#status_'+reply.id));
 	},
 	load_tweet:function(tweet)
 	{
@@ -1864,8 +1812,7 @@ tnt_twitter = {
 		tweet_html += '</div></span><!--/.actions-->'
 		tweet_html += '</li>'
 		$('#timeline').append(tweet_html);
-		//DOMNodeInserted should take care of this for us.
-		//tnt_twitter.tweet_process($('#status_'+tweet.id)); 
+		tnt_twitter.tweet_process($('#status_'+tweet.id));
 	},
 	tweet_save_args:function(status_id,user,img,text,created_at,in_reply_to_status_id,in_reply_to_user){
 		var tweet = {
@@ -1892,6 +1839,10 @@ tnt_twitter = {
 			GM_setValue('tnt_twitter.'+store,uneval(tnt_twitter[store]));
 			if( typeof callback == "function" ) callback();
 		},100);
+	},
+	save_tweets:function(tweets){
+		tnt_twitter.tweet_cache = $.merge(tnt_twitter.tweet_cache,tweets);
+		window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',uneval(tnt_twitter.tweet_cache)); },0);
 	},
 	save_username:function(friend){
 		if( friend.match('twitter.com') )
@@ -2085,7 +2036,7 @@ tnt_twitter = {
 				});
 			}
 			window.setTimeout(function(){
-				tnt_twitter.ajax_q.push(options);
+				tnt_twitter.ajax_queue.push(options);
 			},0);
 		}
 	}
