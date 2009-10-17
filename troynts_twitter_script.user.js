@@ -312,8 +312,10 @@ tnt_twitter = {
 		var css = ".hentry.to_me { background:#ffe; }";
 		
 		/* make room for retweet button */
-		css += "ol.statuses .actions { top:0; }"
-		css += 'a.tnt-retweet { background:#C3C3C3; color:#fff; padding:2px !important; margin-right:-4px; position:relative; top:2px; width:20; height:20; display:inline !important; }';
+		css += 'ol.statuses .actions { top:0; }';
+		css += 'a.tnt-retweet { background:#C3C3C3; color:#fff; padding:2px !important; margin-right:-4px; position:relative; top:2px; width:20; height:20; }';
+		css += '.actions .tnt-retweet { display:none; }';
+		css += '.hentry:hover .tnt-retweet { display:inline; }';
 		
 		
 		/* useful for really long threads */
@@ -1476,7 +1478,7 @@ tnt_twitter = {
 	{
 		if( !tnt_twitter.can('add_retweet_button') ) return;
 		
-		$reply_btn = $tweet.find('span.actions:first .reply:first');
+		$reply_btn = $tweet.find('span.actions:first .reply:first a');
 		if( $reply_btn.length != 1 ) return;
 		
 		$retweet_btn = $reply_btn.clone();
@@ -1487,10 +1489,10 @@ tnt_twitter = {
 		var link = $retweet_btn.attr('href');
 		link = link.split('&')
 		var content = $tweet.find('.entry-content:first,.msgtxt:first').text();
-		link[0] = '/home?status='+encodeURIComponent('RT @'+user+' '+ content.replace("\n",'','g') )
+		link[0] = '/home?'+$.param({status:'RT @'+user+' '+ content.replace("\n",'','g') })
 		link = link.join('&');
 		$retweet_btn.attr('href',link);
-		$reply_btn.after($retweet_btn);
+		$tweet.find('span.actions:first div').append($retweet_btn);
 		
 		var $s = $('#status');
 		if( $s.length == 1 && $s.is(':visible') )
