@@ -1425,7 +1425,8 @@ tnt_twitter = {
 		var link = $retweet_btn.attr('href');
 		link = link.split('&')
 		var content = $tweet.find('.entry-content:first,.msgtxt:first').text();
-		link[0] = '/home?'+$.param({status:'RT @'+user+' '+ content.replace("\n",'','g') })
+                var retweet_msg = 'RT @'+user+' '+ content.replace("\n",'','g') 
+		link[0] = '/home?'+$.param({status: retweet_msg })
 		link = link.join('&');
 		$retweet_btn.attr('href',link);
 		$actions.append($retweet_btn);
@@ -1436,7 +1437,7 @@ tnt_twitter = {
 			var $s = $('#status');
 			$s.val('');
 			$(this).siblings('.reply:first').trigger('click');
-			$s.val('RT ' + $s.val() + content);
+			$s.val(retweet_msg);
 			$s.blur().focus();
 			return false;
 		});
