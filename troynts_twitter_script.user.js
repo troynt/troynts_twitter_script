@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.4
+// @version		10.5
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -205,7 +205,7 @@ when updating
 tnt_twitter = {
 	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr shrt.fr 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
 	longurl_api_url: 'http://api.longurl.org/v1/',
-	bitly_api_url: 'http://api.bit.ly/',
+	bitly_api_url: 'http://api.j.mp/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
 	flickr_api_key: '2a9d986b3c683b9cf4ecb69b0e80f8f8',
 	flickr_secret: '46b0b3c471dbd5f8',
@@ -609,7 +609,7 @@ tnt_twitter = {
 		
 		html = '<small style="margin-top:1em">'+
 				'<b>Version</b> '+CheckScriptForUpdate.version+' ( <a target="_blank" href="http://sn.im/troys_twitter_script">Homepage</a> )<br />' +
-				'<b>By</b> <a target="_blank" href="http://twitter.com/troynt">@troynt</a><br />' +
+				'<b>By</b> <a target="_blank" href="'+ tnt_twitter.twitter_url +'/troynt">@troynt</a><br />' +
 				'Hover over setting for brief description.<br />Refresh after you have made your changes. </small>';
 		$.each(tnt_twitter.default_settings,function(category,settings){
 			html += '<h3>'+category.replace('_',' ','g')+'</h3><ul>'
@@ -1088,7 +1088,7 @@ tnt_twitter = {
 			if( $status.length != 1 || orig_update.length < 140 ) return;
 					
 			// from http://userscripts.org/scripts/show/39042
-			var urlRegExp = new RegExp(/(https?:\/\/\S+)/im);
+			var urlRegExp = new RegExp(/(https?:\/\/\S+)/igm);
 						
 			var urlMatches = orig_update.match(urlRegExp);
 			if( !urlMatches ) return; 
@@ -1098,7 +1098,7 @@ tnt_twitter = {
 				var url_parts = domain.split('/');
 				domain = url_parts.length > 1 ? url_parts[0] : domain;
 								
-				if( url.length < 20 || tnt_twitter.short_url_domains.indexOf(domain) > -1 || tnt_twitter.url_cache[url] ) continue;
+				if( url.length < 18 || tnt_twitter.short_url_domains.indexOf(domain) > -1 ) continue;
 				window.setTimeout(function(){
 					GM_xmlhttpRequest({
 						method:'GET',
