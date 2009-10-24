@@ -1125,7 +1125,8 @@ tnt_twitter = {
 							{
 								if (resp.results[url]['shortUrl'].length < url.length)
 								{
-									$status.val($status.val().replace(url, resp.results[url]['shortUrl'], 'gi'));
+									// replace http:// with www. for even shorter URLs
+									$status.val($status.val().replace(url, resp.results[url]['shortUrl'].replace('http://','www.'), 'gi'));
 									$status.trigger('blur').trigger('focus')//update status count
 								}
 							}
