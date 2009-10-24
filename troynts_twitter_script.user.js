@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.5
+// @version		10.6
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -72,6 +72,12 @@ GM_registerMenuCommand("Clear Twitter Cache", function(){
 	tnt_twitter.clear_cache();
 	alert('Cache Cleared');
 });
+
+var audio_player = "http://www.swfcabin.com/swf-files/1256355627.swf"
+
+var icons = {
+	retweet:"data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%0F%00%00%00%18%08%06%00%00%00%25%05%A7i%00%00%00%19tEXtSoftware%00Adobe%20ImageReadyq%C9e%3C%00%00%01%08IDATx%DAb%BC%7B%F7.%03%01%A0%09%C4%9E%40%BC%0C%88_%20K%B00%10%06K%81%D8%10%88%8D%818%1AY%82%89%80FV%20%96%80%B2e%D0%25%91m%D6%06bo%20V%06bf%20%BE%09%C4%0B%80%98%1D*%FF%1F%9F%E6d%20%F6%02bY%A8%E6%07%40%7C%18%88%19%A1%F2%20%17%04%001%0FT~3L%F36h%A0%20%03u%206%03%E2%DFH%FC%F5H%F2%5B%40%9A%83%914%5E%06%E2CP%DB%DE%03%F1J%20.%C3%11%1E%2C%20%CD%FEP%CE%0F%20%B6%87jB%06%3F%A0%F4'%A8%D7%DE%01%B1%08%10%1F%60A%0A%88%2F%40%FC%19%8B%0D%07%A0%81%C8%07%C4%B7%80%F8%12rT%FD%83%B29%81X%00%8B%E6%83H%EC%0BP%0B%40%AEIaB%8A%0An%24'%22%83%C5%40%7C%04%CAf%84%866HO%24%C8%D9%FD%40%2C%06%C4%3B%A1N%C7%06%5C%80%B8%02%88%DD%80%98%17jH%17cZZ%DAh%DA%1EM%DB%C31m%03%04%18%00%D9%C2X%98%E5A~X%00%00%00%00IEND%AEB%60%82"
+}
 
 var social_icons = {
 	academia:"data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%10%00%00%00%10%08%06%00%00%00%1F%F3%FFa%00%00%00%04sBIT%08%08%08%08%7C%08d%88%00%00%02%90IDAT8%8D%3D%92Mk%9Ce%18%85%AF%FB%3C%F7%3B%D3%99F%A6%92d%22%F5%23%22%9A%8D%16J%B7%22%A5t%A1T%AD%20%14%2B%22~%ADt%23%A1t!%5D%B6%A0.%CC%0FpQ%5D%B8%D3%5D%EA%2F%90%BAQ%A2%E0N%AB%F8%11%AA)A%DA%9A%40f%E6y%EE%DBE%A2%E7%0F%9C%C3%B9.%E3%D4%B9%C4%02%D5B%B8%B0*%F0)%99%09Y%10I%98%D3)!%0A%D5f%90N%A1R%BC%87%97%ECC%02%02%D5)%C8%88%E6%C8%1A%96%85%A6%40%19%CC%9A%83M!%05L%A8%F4%A8%B3)j%9A%10%DA%A3%D9%0C%BAD%E6xI%A2%1B%10%25Q8a%80U%8CC%FBM8%10%40%C1%15N%A8%80%1F4%D2p%EF8%3A%1Ap%FF%E2C%DC%DD%DDa%A8%3E%3Fl%FE%0E%04%B5%C6%C1%0A%40S%3Cz%09%D3%C4%D2%08%87%85%F99~%FCd%8D%23s%03%FEK%D2%B8%BDSy%FA%E2e%BE%B9%F1%13%FD%EAL%CA%0Cr%80%2C%85J%80%83B%AC%9E%7D%86%D1%E1!_%5C%DF%E0%D8%1B%AB%BCr%E5c%BE%BB%B1%C9%BD%C3%01%97%5E~%01%B3%1ESM09X%C5%D3%84%95%86%9A%D3%3CY%FF%FA%5B6oos%F5%DAu%9C%19%BF%DE%FC%8A%17%9F%3A%CE%89G%97%19%DDs%98TA%D9%23%B4O%C9%91%13Y%C0%83%12%C1%CE%DE%8C%95%F1Q%AE%BD%7F%91%D3'%1E%07%A0%B1%FFY%20%C8%06*%903P%E2%25%2B%CD%04%09%C5%8D%F5%0F%2F%B0%3C%5E%E2%B7%ADm%D6%3E_%E7%8F%5B%7F%F3%F0%FC%22%EF%BEt%E6%E0%B8%1E%91%13%B0%1E%8A%C4S%05hH%3DN%1F%7B%8C%E5%F1%22%99%C9s%EF%5D%E1%CF%5B%FF%90%16%7C%F4%F6%EB%60%81%2B05%88%02%40%C8P%14%C3%CC%08%83%9B%7Fm%934%2C%E1%FC%A9'y%60a%9E%D5%F3%CF%F3%DA%99%93%FF%F3%979Yz%60%05%BCCP%40%0EJ%B6%EE%DE%E1%F2g_%92%16%5Cz%F5%1C%DF%7F%FA%01'%9FX%E1%9D%B5%AB%00%1C%7Fd%99f%C2%0D%D2u%20%D7%B3o%26%04%C80%A6%CCws%AC%2C%8Dy%F0%BE%056~%FE%85%9D%DD%3D%2C%92%F1%D2%08E%B0%B1ug_%7D%9Bb%D1%C7%CA%D9%B7%12D0A%14%22%0BC%89TR%ADaa%04P%B3%40V%5C%86eR%CDQ%0D%3C%5Cx%AD%C8%0F14g%2Fg%ECZ2%0CQ%D2i%02%B3%A0%032E%A4%835%CC%1A%EA%0CuY(%DD%00%09%A65q%92%11%1D%CD%A0x%22K0C%CD%E8u%85N%E0%26d%7D%5C%E2_%0F%91%1C%98%1DZ~~%00%00%00%00IEND%AEB%60%82",
@@ -192,18 +198,16 @@ function clickableNow_JsonP(url,callback) {
 				document.getElementsByTagName("head")[0].appendChild(newScript);
 }
 
-
-
 /*
 Note: remember to 
 ADD
-j.mp, flic.kr, shrt.fr to short_url_domains
+j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms to short_url_domains
 REMOVE
 yfrog.com
 when updating
 */
 tnt_twitter = {
-	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr shrt.fr 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
+	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
 	longurl_api_url: 'http://api.longurl.org/v1/',
 	bitly_api_url: 'http://api.j.mp/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
@@ -224,6 +228,7 @@ tnt_twitter = {
 			'shrink_urls':'When tweet is over limit, urls are shrunk',
 			'search':'Adds search box in sidebar',
 			'video_embed':'Embed Video into Tweets',
+			'audio_embed':'Embed Audio Player into Tweets',
 			'image_embed':'Embed Images into Tweets',
 			'add_retweet_button':'Add Retweet Button to Tweets',
 			'notes':'Allows you to keep notes on users',
@@ -245,6 +250,7 @@ tnt_twitter = {
 				'hashtags':1,
 				'show_replies':1,
 				'video_embed':1,
+				'audio_embed':1,
 				'image_embed':1,
 				'add_retweet_button':1,
 				'hide_twitter_defs':1,
@@ -308,12 +314,12 @@ tnt_twitter = {
 		/* highlight tweets to you */
 		var css = ".hentry.to_me { background:#ffe; }";
 		
-		/* make room for retweet button */
-		css += 'ol.statuses .actions { top:0; }';
-		css += 'a.tnt-retweet { background:#C3C3C3; text-indent:0 !important; color:#fff; padding:2px !important; margin-right:-4px; position:relative; top:2px; width:20; height:20; }';
-		css += '.actions .tnt-retweet { display:none; }';
-		css += '.hentry:hover .tnt-retweet { display:inline; }';
+		/* retweet */
+		css += 'a.tnt-retweet { width:15px; height:12px; padding:0 !important; display:block; visibility:hidden; background:url("'+ icons.retweet +'") no-repeat 0 0; }';
+		css += 'a.tnt-retweet:hover { background-position:0 -12px; }'
+		css += '#permalink a.tnt-retweet { visibility:visible; }'
 		
+		css += '.tnt-audio-link { width:12px; height:12px; margin-right:4px; cursor:pointer; }'
 		
 		/* useful for really long threads */
 		css += ".hentry .actions { vertical-align:top; padding-top:0; }";
@@ -364,7 +370,7 @@ tnt_twitter = {
 		if( tnt_twitter.can('hide_twitter_defs') )
 			css += '#side .promotion { display:none; }'
 		
-		$('.hentry,#permalink,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
+		$('.hentry,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
 		
 		GM_addStyle(css);
 		if ($.livequery) {
@@ -461,7 +467,7 @@ tnt_twitter = {
 			tnt_twitter.save_username(user);
 		}
 		
-		tnt_twitter.tweet_process($('#permalink'));	
+		tnt_twitter.tweet_process($('#permalink .hentry'));	
 	},
 	ajax:function(ajax_obj)
 	{
@@ -610,6 +616,7 @@ tnt_twitter = {
 		html = '<small style="margin-top:1em">'+
 				'<b>Version</b> '+CheckScriptForUpdate.version+' ( <a target="_blank" href="http://sn.im/troys_twitter_script">Homepage</a> )<br />' +
 				'<b>By</b> <a target="_blank" href="'+ tnt_twitter.twitter_url +'/troynt">@troynt</a><br />' +
+				'<b><a title="Support development of this project" href="http://pledgie.com/campaigns/6279">Donate! :)</a></b><br />' +
 				'Hover over setting for brief description.<br />Refresh after you have made your changes. </small>';
 		$.each(tnt_twitter.default_settings,function(category,settings){
 			html += '<h3>'+category.replace('_',' ','g')+'</h3><ul>'
@@ -1323,7 +1330,7 @@ tnt_twitter = {
 				$published.css('display','inline')
 			
 			//expand ... on end of links
-			$content.children('a.web').each(function(){
+			$content.find('a.web').each(function(){
 				$(this).text($(this).attr('href'));
 			});
 
@@ -1418,7 +1425,7 @@ tnt_twitter = {
 		if( $reply_btn.length != 1 ) return;
 		
 		$retweet_btn = $reply_btn.clone();
-		$retweet_btn.attr('title','retweet this').removeClass('reply').addClass('tnt-retweet').text('RT')
+		$retweet_btn.attr('title','retweet this').removeClass('reply').addClass('tnt-retweet')//.text('RT')
 		
 		var user = tnt_twitter.user_from_tweet($tweet);
 
@@ -1469,7 +1476,7 @@ tnt_twitter = {
 	},
 	expand_urls:function( $tweet )
 	{
-		$tweet.find('.entry-content a.web').not('.expanded').each(function(){
+		$tweet.find('a.web').not('.expanded').each(function(){
 			var $t = $(this);
 			if( !$t.attr('href').match('https?://') )
 			{
@@ -1490,23 +1497,26 @@ tnt_twitter = {
 				if( !long_url.match(/https?/) ) long_url = 'http://'+long_url;
 				$t.attr('href',long_url);
 				$t.attr('title',long_url);
+				$t.text(long_url)
 				$t.addClass('expanded');
 			}
 			
 			url = $t.attr('href').replace('http://','');
 			url_parts = url.split('/');
 			domain = url_parts.length > 1 ? url_parts[0] : url;
+			nowww_domain = domain.replace('www.','');
 			
 			var images_okay = tnt_twitter.can('image_embed')
 			var videos_okay = tnt_twitter.can('video_embed')
+			var audio_okay = tnt_twitter.can('audio_embed')
 							
-			if( tnt_twitter.short_url_domains.indexOf(domain) > -1 && !( domain == 'ping.fm' && url_parts[1] == 'p' ) )
+			if( tnt_twitter.short_url_domains.indexOf(nowww_domain) > -1 && !( domain == 'ping.fm' && url_parts[1] == 'p' ) )
 			{
 				/**
 				 * Adding Detection for TinyURL and Bitly so if LongURL services
 				 * go down, I still have decent coverage.
 				 */
-				if( domain == 'tinyurl.com')
+				if( nowww_domain == 'tinyurl.com' )
 				{
 					tnt_twitter.ajax({
 						url:  'http://tinyurl.com/preview.php?num='+url_parts[1],
@@ -1522,7 +1532,7 @@ tnt_twitter = {
 						}
 					})
 				}
-				else if( domain == 'bit.ly' )
+				else if( nowww_domain == 'bit.ly' || nowww_domain == 'j.mp' )
 				{
 					tnt_twitter.ajax({
 						url:  tnt_twitter.bitly_api_url + 'expand' + tnt_twitter.bitly_api_key + '&format=json&shortUrl=' + encodeURIComponent(url),
@@ -1608,6 +1618,11 @@ tnt_twitter = {
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" alt="'+url+'" src="http://'+url+'" />')
+			}
+			else if( audio_okay && url.match('\.(mp3|ogg|wav)$') )
+			{
+				$t.addClass('expanded');
+				$t.after('<br /><object type="application/x-shockwave-flash" data="'+ audio_player +'" width="160" height="20"><param name="wmode" value="transparent" /><param name="movie" value="'+ audio_player +'" /><param name="flashvars" value="'+$.param({'mp3':$t.attr('href')})+'" /></object>');
 			}
 			else if( images_okay && url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
 			{
