@@ -469,6 +469,13 @@ tnt_twitter = {
 		
 		tnt_twitter.tweet_process($('#permalink .hentry'));	
 	},
+	/**
+	 * TODO: FIXME
+	 */
+	alert:function(msg)
+	{
+		new unsafeWindow.ShortNotification().setMessage(msg).show()
+	},
 	ajax:function(ajax_obj)
 	{
 		
@@ -1105,7 +1112,7 @@ tnt_twitter = {
 				var url_parts = domain.split('/');
 				domain = url_parts.length > 1 ? url_parts[0] : domain;
 								
-				if( url.length < 18 || tnt_twitter.short_url_domains.indexOf(domain) > -1 ) continue;
+				if( url.length < 20 || tnt_twitter.short_url_domains.indexOf(domain) > -1 ) continue;
 				window.setTimeout(function(){
 					GM_xmlhttpRequest({
 						method:'GET',
@@ -1116,8 +1123,11 @@ tnt_twitter = {
 							eval('var resp = ' + resp.responseText);
 							if( resp.statusCode == "OK" )
 							{
-								if( resp.results[url]['shortUrl'].length < url.length )
-									$status.val($status.val().replace(url,resp.results[url]['shortUrl'],'gi'));
+								if (resp.results[url]['shortUrl'].length < url.length)
+								{
+									$status.val($status.val().replace(url, resp.results[url]['shortUrl'], 'gi'));
+									$status.trigger('blur').trigger('focus')//update status count
+								}
 							}
 						}
 					});
