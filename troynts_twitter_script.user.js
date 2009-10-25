@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.6
+// @version		10.7
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -1818,7 +1818,7 @@ tnt_twitter = {
 		var user = tweet.user.screen_name;//alias
 		var img = '';
 		if( tweet.user.profile_image_url )
-			img = '<a href="/'+  user +'"><img src="'+(tweet.user.profile_image_url + '')+'" /></a>'
+			img = '<a class="tweet-url screen-name" href="'+  tnt_twitter.twitter_url +'/'+  user +'"><img src="'+(tweet.user.profile_image_url + '')+'" /></a>'
 		var klass = 'hentry status u-'+user;
 		var reply_meta = '';
 		if( tweet.in_reply_to_status_id )
@@ -1839,7 +1839,6 @@ tnt_twitter = {
 		tweet_html += '</div></span><!--/.actions-->'
 		tweet_html += '</li>'
 		$('#timeline').append(tweet_html);
-		tnt_twitter.tweet_process($('#status_'+tweet.id));
 	},
 	tweet_save_args:function(status_id,user,img,text,created_at,in_reply_to_status_id,in_reply_to_user){
 		var tweet = {
