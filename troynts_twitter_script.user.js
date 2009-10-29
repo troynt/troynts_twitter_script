@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.7
+// @version		10.8
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -1429,36 +1429,57 @@ tnt_twitter = {
 	},
 	tweet_add_retweet_button:function($tweet)
 	{
-		if( !tnt_twitter.can('add_retweet_button') ) return;
-		
-		var $actions = $tweet.find('span.actions:first');
-		$reply_btn = $actions.find('.reply:first a, a.reply:first');
+		if( !tnt_twitter.can('add_retweet_button') || $tweet.find('.retweet-link').length > 0 ) return;
+				
+		$reply_btn = $tweet.find('.reply:first a, a.reply:first');
 		if( $reply_btn.length != 1 ) return;
 		
-		$retweet_btn = $reply_btn.clone();
-		$retweet_btn.attr('title','retweet this').removeClass('reply').addClass('tnt-retweet')//.text('RT')
+		var needs_text = $.trim($reply_btn.text()).length > 0
 		
 		var user = tnt_twitter.user_from_tweet($tweet);
-
+		
+		//Create Link
+		$retweet_btn = $reply_btn.clone();
+		if( needs_text )
+			$retweet_btn.text('Retweet')
+		$retweet_btn.attr('title','retweet this')
+		
 		var link = $retweet_btn.attr('href');
 		link = link.split('&')
 		var content = $tweet.find('.entry-content:first,.msgtxt:first').text();
                 var retweet_msg = 'RT @'+user+' '+ content.replace("\n",'','g') 
 		link[0] = '/home?'+$.param({status: retweet_msg })
 		link = link.join('&');
-		$retweet_btn.attr('href',link);
-		$actions.append($retweet_btn);
+		$retweet_btn.attr({
+			'href':link,
+			'class':''
+		});
 		
 		var $s = $('#status');
-		if( $s.length == 1 && $s.is(':visible') )
-		$retweet_btn.click(function(){
-			var $s = $('#status');
-			$s.val('');
-			$(this).siblings('.reply:first').trigger('click');
-			$s.val(retweet_msg);
-			$s.blur().focus();
-			return false;
-		});
+		if ($s.length == 1 && $s.css('display') != 'none')
+		{
+			$retweet_btn.click(function(){
+				var $s = $('#status');
+				$s.val('');
+				$(this).siblings('.reply:first').trigger('click');
+				$s.val(retweet_msg);
+				$s.blur().focus();
+				return false;
+			});
+		}
+		
+		if( needs_text )
+		{
+			$reply_btn.parents('li:first').after($retweet_btn);
+			$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
+			$retweet_btn.before('<span class="retweet-icon icon" />')
+		}
+		else
+		{
+			$retweet_btn.addClass('tnt-retweet')
+			$tweet.find('span.actions:first').append($retweet_btn);
+		}
+		
 	},
 	linkify:function( $tweet )
 	{
