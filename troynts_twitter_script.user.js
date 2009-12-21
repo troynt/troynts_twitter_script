@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.8
+// @version		10.9
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -63,6 +63,10 @@ if ( (GM_getValue('updated', 0) != 'off') && (+this.time > (+GM_getValue('update
     }
 };
 
+
+var twttr = unsafeWindow.twttr;
+var RetweetInlineForm = unsafeWindow.RetweetInlineForm;
+
 console = {};
 console.log = function(msg){};
 if(typeof unsafeWindow.console != 'undefined')
@@ -121,19 +125,19 @@ function get_social_icon(url)
 	return 'http://'+domain+'/favicon.ico';
 }
 
-var clickableNow = function () {
+/**
+ * @author Shannon Whitley < http://twitter.com/swhitley >
+ * http://clickablenow.com/
+ * Clickable Backgrounds
+ */
+var clickablenow = function () {
 	return {
 		init : function () {
-				var loc = document.location.href;
-				if(loc.toLowerCase().indexOf('://twitter.com/') > 0)
-				{
-					clickableNow.run();
-				}
-		
+					clickablenow.run();
 		},
 		run : function () {
 			var username = "";
-			var meta = document.getElementsByTagName("meta");
+			var meta = content.document.getElementsByTagName("meta");
 			for( var i = 0; i < meta.length; i++ )
 			{
 				if( meta[i].name == "session-user-screen_name" )
@@ -148,66 +152,141 @@ var clickableNow = function () {
 			}
 			if(username.length > 0)
 			{
-				clickableNow_JsonP('http://s3.amazonaws.com/wmcp/'+username+'.jsonp?cache='+parseInt(new Date().getTime().toString().substring(0, 10)),"clickableNowHandle");
+				tnt_twitter.ajax({
+					url:'http://s3.amazonaws.com/wmcp/'+username+'?cache='+parseInt(new Date().getTime().toString().substring(0, 10)),
+					callback:function(resp){
+						clickablenow.handle(resp)
+					}
+				})
 			}
+		},		
+		handle : function (response) {
+			eval('var r = ' + response.responseText);  
+
+			if( r.areas.area && r.areas.area.length > 0 )
+			{
+				for(var ndx = 0;ndx < r.areas.area.length; ndx++)
+				{
+					var coords = r.areas.area[ndx].coords.split(",");
+					var left = parseInt(coords[0]);
+					var top = parseInt(coords[1]);
+					var width = parseInt(coords[2]) - left;
+					var height = parseInt(coords[3]) - top;
+					//Get extension
+					var ext = '';
+					if(r.areas.area[ndx].href.length > 3)
+					{
+						ext = r.areas.area[ndx].href.substring(r.areas.area[ndx].href.length - 3);
+						
+					}
+					//Init type
+					var type = 'link';
+					var tag = 'a';
+					var link = r.areas.area[ndx].href;
+					//Check Extension
+					switch(ext)
+					{
+						case "jpg":
+						case "png":
+						case "gif":
+							type = 'image';
+							break;
+						case "mp3":
+							type = 'audio';
+							tag = 'object';
+							break;
+					}
+					//Video
+					if(r.areas.area[ndx].href.length > 22)
+					{
+						if(r.areas.area[ndx].href.substring(0,22) == 'http://www.youtube.com' && r.areas.area[ndx].href.indexOf('/watch?v=') > 0)
+						{
+							type = 'video';
+							tag = 'object';
+							link = link.replace("watch?v=","v/");
+						}
+					}
+				
+					//Create the element
+					var elem = content.document.createElement(tag);
+					
+					elem.setAttribute("style","position:fixed;left:"+left+"px;top:"+top+"px;width:"+width+"px;height:" + height+"px;");					
+					if(type == 'link' || type == 'image')
+					{
+						//elem is anchor
+						elem.setAttribute("class","cnlink");
+						elem.setAttribute("target","_blank");
+						if(type == 'image')
+						{
+							elem.innerHTML = '<img src="'+ r.areas.area[ndx].href + '" width="' + width + '" height="' + height + '" alt="' + r.areas.area[ndx].href + '" />';
+						}
+						else
+						{
+							var color = "#0000FF";
+							if(r.areas.area[ndx].color)
+							{
+								color=r.areas.area[ndx].color
+							}					
+							elem.setAttribute("onmouseover","this.style.backgroundColor= \'" + color + "\';this.style.opacity=\'0.4\';");
+							elem.setAttribute("onmouseout","this.style.opacity=\'0\'");				
+						}
+						elem.href = r.areas.area[ndx].href;
+						elem.title = elem.href;
+						
+					}
+					if(type == 'video' || type == 'audio')
+					{
+						elem.setAttribute("width",width);
+						elem.setAttribute("height",height);
+						if(type == 'video')
+						{
+							elem.innerHTML = '<param name="movie" value="'+link+'" /><param name="allowFullScreen" value="true" />'
+									+ '<param name="allowscriptaccess" value="always" />'
+									+ '<embed src="'+link+'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'+width+'" height="'+height+'" />';
+						}
+						else
+						{
+							elem.type="application/x-shockwave-flash";
+							elem.data="http://www.clickablenow.com/audio/player.swf" 
+							elem.id="audioplayer"+ndx;
+							elem.innerHTML = '<param name="movie" value="http://www.clickablenow.com/audio/player.swf" />'
+									+ '<param name="FlashVars" value="playerID='+ndx+'&amp;soundFile='+escape(link)+'" />'
+									+ '<param name="quality" value="high" />'
+									+ '<param name="menu" value="false" />'
+									+ '<param name="wmode" value="transparent" />';
+						}
+					
+					}
+					this.append(elem);
+				}
+			}
+		},
+		append : function (elem) {
+
+			if(content.document.getElementById("profile"))
+			{
+				content.document.getElementById("profile").appendChild(elem);
+			}
+			if(content.document.getElementById("show"))
+			{
+				content.document.getElementById("show").appendChild(elem);
+			}
+
 		}
+		
 	};
 }();
-
-function clickableNow_JsonP(url,callback) {
-				var newScript = document.createElement('script');
-				newScript.type = 'text/javascript';
-				newScript.innerHTML += 'function  clickableNowHandle(parms){';
-				newScript.innerHTML += 'var r = parms.value.items[0];';
-				newScript.innerHTML += 'if( r.areas.area && r.areas.area.length > 0 )';
-				newScript.innerHTML += '{';
-				newScript.innerHTML += 'for(var ndx = 0;ndx < r.areas.area.length; ndx++)';
-				newScript.innerHTML += '{';
-				newScript.innerHTML += 'var coords = r.areas.area[ndx].coords.split(",");';
-				newScript.innerHTML += 'var anr = document.createElement("a");';
-				newScript.innerHTML += 'var left = parseInt(coords[0]);';
-				newScript.innerHTML += 'var top = parseInt(coords[1]);';
-				newScript.innerHTML += 'var width = parseInt(coords[2]) - left;';
-				newScript.innerHTML += 'var height = parseInt(coords[3]) - top;';
-				newScript.innerHTML += 'anr.setAttribute("style","position:fixed;left:"+left+"px;top:"+top+"px;width:"+width+"px;height:" + height+"px;");';
-				newScript.innerHTML += 'var color = "#0000FF";if(r.areas.area[ndx].color){color=r.areas.area[ndx].color}';
-				newScript.innerHTML += 'anr.setAttribute("onmouseover","this.style.backgroundColor= \'" + color + "\';this.style.opacity=\'0.4\';");';
-				newScript.innerHTML += 'anr.setAttribute("onmouseout","this.style.opacity=\'0\'");';				
-				newScript.innerHTML += 'anr.setAttribute("class","cplink");';
-				newScript.innerHTML += 'anr.setAttribute("target","_blank");';
-				newScript.innerHTML += 'anr.href = r.areas.area[ndx].href;';
-				newScript.innerHTML += 'anr.title = anr.href;';
-				newScript.innerHTML += 'document.getElementById("profile").appendChild(anr);';
-				newScript.innerHTML += '}';
-				newScript.innerHTML += 'var div = document.createElement("div");';
-				newScript.innerHTML += 'div.style.position = "fixed";';
-				newScript.innerHTML += 'div.style.left = "0px";';
-				newScript.innerHTML += 'div.style.top = "0px";';
-				newScript.innerHTML += 'div.innerHTML = "Clickable";';
-				newScript.innerHTML += 'div.style.color = "#FFFFFF";';
-				newScript.innerHTML += 'div.style.backgroundColor = "#000000";';
-				newScript.innerHTML += 'div.style.fontFamily = "Arial";';
-				newScript.innerHTML += 'div.style.fontSize = "10px";';
-				newScript.innerHTML += 'div.style.padding = "2px";';
-				newScript.innerHTML += 'document.getElementById("profile").appendChild(div);';
-				newScript.innerHTML += '}}';
-				document.getElementsByTagName("head")[0].appendChild(newScript);
-				var newScript = document.createElement('script');
-				newScript.type = 'text/javascript';
-				newScript.src = url;
-				document.getElementsByTagName("head")[0].appendChild(newScript);
-}
 
 /*
 Note: remember to 
 ADD
-j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms to short_url_domains
+j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms, pic.gd to short_url_domains
 REMOVE
 yfrog.com
 when updating
 */
 tnt_twitter = {
-	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
+	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr pic.gd lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
 	longurl_api_url: 'http://api.longurl.org/v1/',
 	bitly_api_url: 'http://api.j.mp/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
@@ -239,7 +318,8 @@ tnt_twitter = {
 			'friend_icons':'show smiley icons on friends ( users you follow and they follow back )',
 			'groups':'Allows you to group Twitterers together in searchable Groups',
 			'@user_tab':'Searches for @user allowing you to view their mentions and replies.',
-			'tweet_char_count':'Shows character count in tweet meta, users get a "twoosh!" if over 139 characters'
+			'tweet_char_count':'Shows character count in tweet meta, users get a "twoosh!" if over 139 characters',
+			'twitter_age':'Show date user joined Twitter'
 			
 		}
 	},
@@ -268,10 +348,11 @@ tnt_twitter = {
 				'local_time':1,
 				'map_location':1,
 				'notes':1,
-				'social_links':1
+				'social_links':1,
+				'twitter_age':1
 			},
 			'friends_and_followers':{
-				'groups':1,
+				'groups':0,
 				'show_bios':1
 			}
 	},
@@ -285,9 +366,7 @@ tnt_twitter = {
 				
 		$ = unsafeWindow.jQuery;
 		jQuery = $;
-		
-		twttr = unsafeWindow.twttr;
-		
+
 		var options = eval(GM_getValue('tnt_twitter.settings')) || {};
 		tnt_twitter.settings = $.extend({},tnt_twitter.default_settings, options );
 		
@@ -339,7 +418,7 @@ tnt_twitter = {
 		css += '#tnt-twitter-notes .notes-body { font-size:110%; }'
 		
 		/* settings */
-		css += '#tnt-settings-container { position:absolute; top:0; right:0; background:#fff; padding:.25em 1em; text-align:left; }'
+		css += '#tnt-settings-container { z-index:99999; position:absolute; top:0; right:0; background:#fff; padding:.25em 1em; text-align:left; }'
 		css += '#tnt-settings li { list-style:none; line-height:2; }'
 		css += '#tnt-settings h3 { margin-top:.5em; }'
 		css += '#tnt-settings label { padding:.25em 1em; }'
@@ -455,9 +534,12 @@ tnt_twitter = {
 				});
 			}
 			
-			if( tnt_twitter.can('clickable_backgrounds') ) clickableNow.init();
+			if( tnt_twitter.can('clickable_backgrounds') ) clickablenow.init()
 			
 			if( tnt_twitter.can('@user_tab') ) tnt_twitter.profile_add_mentions();
+			
+			if( tnt_twitter.can('twitter_age') ) tnt_twitter.profile_add_twitter_age();
+			
 			if( tnt_twitter.can('groups') ) tnt_twitter.profile_add_groups();
 			
 			//if( tnt_twitter.can('social_links') ) tnt_twitter.profile_add_social_links();			
@@ -509,6 +591,22 @@ tnt_twitter = {
 		},'@' + user +'|Search for mentions of '+user,function(){
 			tnt_twitter.do_search('@'+user);
 		},true);
+	},
+	profile_add_twitter_age:function()
+	{
+		var user = tnt_twitter.profile_get_username();
+		tnt_twitter.ajax({
+			url:'http://twitter.com/users/show/'+user+'.json',
+			callback:function(resp)
+			{
+				eval('var resp = ' + resp.responseText);
+				var created_at = new Date(resp.created_at)
+				var m = created_at.getMonth()+1;
+				var d = created_at.getDate();
+				var y = created_at.getFullYear();
+				$('#profile ul.about').append('<li id="joined"><span class="label">Joined</span> <span >'+ m +'/'+d+'/'+y + '</span></li>')
+			}
+		});
 	},
 	/**
 	 * Attempts to perform a search using the search input box,
@@ -1126,7 +1224,7 @@ tnt_twitter = {
 								if (resp.results[url]['shortUrl'].length < url.length)
 								{
 									// replace http:// with www. for even shorter URLs
-									$status.val($status.val().replace(url, resp.results[url]['shortUrl'].replace('http://','www.'), 'gi'));
+									$status.val($status.val().replace(url, resp.results[url]['shortUrl'], 'gi'));
 									$status.trigger('blur').trigger('focus')//update status count
 								}
 							}
@@ -1429,8 +1527,10 @@ tnt_twitter = {
 	},
 	tweet_add_retweet_button:function($tweet)
 	{
-		if( !tnt_twitter.can('add_retweet_button') || $tweet.find('.retweet-link').length > 0 ) return;
-				
+		if( !tnt_twitter.can('add_retweet_button') ) return;
+		
+		var has_rt = $tweet.find('.retweet-link').length > 0;
+						
 		$reply_btn = $tweet.find('.reply:first a, a.reply:first');
 		if( $reply_btn.length != 1 ) return;
 		
@@ -1442,7 +1542,7 @@ tnt_twitter = {
 		$retweet_btn = $reply_btn.clone();
 		if( needs_text )
 			$retweet_btn.text('Retweet')
-		$retweet_btn.attr('title','retweet this')
+		$retweet_btn.attr('title','retweet and comment on this')
 		
 		var link = $retweet_btn.attr('href');
 		link = link.split('&')
@@ -1467,12 +1567,22 @@ tnt_twitter = {
 				return false;
 			});
 		}
-		
+
 		if( needs_text )
 		{
-			$reply_btn.parents('li:first').after($retweet_btn);
-			$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
-			$retweet_btn.before('<span class="retweet-icon icon" />')
+			if( has_rt )
+			{
+				$retweet_btn.text('Comment')
+				$reply_btn.parents('li:first').after($retweet_btn);
+				$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
+				$retweet_btn.before('<span class="retweet-icon icon" />')
+			}
+			else
+			{
+				$reply_btn.parents('li:first').after($retweet_btn);
+				$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
+				$retweet_btn.before('<span class="retweet-icon icon" />')
+			}
 		}
 		else
 		{
@@ -1632,6 +1742,12 @@ tnt_twitter = {
 				var embed_html = '<object width="400" height="225"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo..com&amp;show_title=1&show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="allywas" width="400" height="255"></embed></object>'
 				$t.replaceWith(embed_html);
 			}
+			else if( videos_okay && url.match('twitvid.com/\.+') )
+			{
+				var embed_url = 'http://' + url.replace('twitvid.com/','twitvid.com/player/');
+				$t.addClass('expanded');
+				$t.html('<object width="425" height="344"><param name="movie" value="'+embed_url+'"></param><param name="allowscriptaccess" value="always"></param><param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="'+embed_url+'" quality="high" allowscriptaccess="always" allowNetworking="all" allowfullscreen="true" wmode="transparent" height="344" width="425"></object>');
+			}
 			else if( images_okay && url.match('yfrog\.com/([0-9a-zA-Z]+)') )
 			{
 				var pic = url.match('yfrog\.com/([0-9a-zA-Z]+)');
@@ -1639,12 +1755,39 @@ tnt_twitter = {
 				if (pic[1])
 					$t.html('<img class="tnt-image" alt="' + url + '" src="http://yfrog.com/'+pic[1]+'.th.jpg" />')
 			}
+			else if( images_okay && url.match('znl.me/\.+') )
+			{
+				$t.html('<img class="tnt-image" src="http://www.zannel.com/webservices/content/'+ url_parts[1] +'/Image-568x758-JPG.jpg" />')
+				$t.addClass('expanded');
+			}
 			else if( images_okay && url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)') )
 			{
 				var pic = url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)');
 				$t.addClass('expanded');
 				if( pic[1] )
 					$t.html('<img class="tnt-image" alt="'+url+'" src="http://images.bcphotoshare.com/storages/' + pic[1] +'/thumbnail.jpg" />');
+			}
+			else if( images_okay && url.match('1day1shot\.jp/photos/') )  
+			{  
+				tnt_twitter.ajax({  
+					url: $t.attr('href'),  
+					callback: function(resp){  
+					      if (resp.status != 200)   
+					          return;  
+					      resp = resp.responseText;  
+					      var photo_div = resp.between('class="image"', '</div>');  
+					      var src = photo_div.between('src="', '"');  
+					      if (src.length > 0 && src.match('\.(jpg|jpeg|gif|png)')) {  
+					          $t.addClass('expanded');  
+					          $t.html('<img class="tnt-image" src="http://1day1shot.jp' + src + '" />');  
+					      }  
+					}  
+				});  
+			}
+			else if( images_okay && url.match('twitvideo.jp/\.+') )
+			{
+				$t.addClass('expanded');
+				$t.html('<img class="tnt-image" src="http://twitvideo.jp/img/display/'+ url_parts[1] + '" />');
 			}
 			else if( images_okay && url.match('\.(jpg|jpeg|gif|png)$') )
 			{
@@ -1659,6 +1802,7 @@ tnt_twitter = {
 			else if( images_okay && url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
 			{
 				pid = url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/);
+				$t.addClass('expanded');
 				if( pid.length == 2 )
 				{
 					tnt_twitter.ajax({
@@ -1679,8 +1823,21 @@ tnt_twitter = {
 					});
 				}
 			}
+			else if( images_okay && url.match('tweetphoto.com/\.+') )
+			{
+				tnt_twitter.ajax({
+					url: $t.attr('href'),
+					callback:function(resp){
+						resp = resp.responseText;
+						var img = resp.between('<center>','</center>');
+						img = $(img).addClass('tnt-image')
+						$t.html(img).addClass('expanded');
+					}
+				})
+			}
 			else if( images_okay && domain == 'hellotxt.com' && url_parts[1] == 'i' )
 			{
+				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://hellotxt.com/image/'+url_parts[2]+'.m.jpg" />')
 			}
 			else if( images_okay && domain == 'ping.fm' && url_parts[1] == 'p' )
