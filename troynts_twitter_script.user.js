@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		10.9
+// @version		11.0
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -397,6 +397,10 @@ tnt_twitter = {
 		css += 'a.tnt-retweet { width:15px; height:12px; padding:0 !important; display:block; visibility:hidden; background:url("'+ icons.retweet +'") no-repeat 0 0; }';
 		css += 'a.tnt-retweet:hover { background-position:0 -12px; }'
 		css += '#permalink a.tnt-retweet { visibility:visible; }'
+		css += '.actions-hover .tnt-retweet-link { float:left; line-height:16px; }'
+		css += '.actions-hover .tnt-retweet-link .tnt-retweet-icon { cursor:pointer; }'
+		css += '.actions-hover .tnt-retweet-icon { background-position:-176px 0; height:16px; margin-right:2px; width:16px; }'
+		css += '.actions-hover .tnt-retweet-link:hover .tnt-retweet-icon, .hentry.perma-hover .actions-hover .tnt-retweet-icon { background-position:-192px 0; }'
 		
 		css += '.tnt-audio-link { width:12px; height:12px; margin-right:4px; cursor:pointer; }'
 		
@@ -1574,14 +1578,14 @@ tnt_twitter = {
 			{
 				$retweet_btn.text('Comment')
 				$reply_btn.parents('li:first').after($retweet_btn);
-				$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
-				$retweet_btn.before('<span class="retweet-icon icon" />')
+				$retweet_btn.wrap('<li><span class="tnt-retweet-link"></span></li>');
+				$retweet_btn.before('<span class="tnt-retweet-icon icon" />')
 			}
 			else
 			{
 				$reply_btn.parents('li:first').after($retweet_btn);
-				$retweet_btn.wrap('<li><span class="retweet-link"></span></li>');
-				$retweet_btn.before('<span class="retweet-icon icon" />')
+				$retweet_btn.wrap('<li><span class="tnt-retweet-link"></span></li>');
+				$retweet_btn.before('<span class="tnt-retweet-icon icon" />')
 			}
 		}
 		else
