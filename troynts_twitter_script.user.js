@@ -1644,12 +1644,16 @@ tnt_twitter = {
 			{
 				var long_url = tnt_twitter.url_cache[url].long_url;
 				var title = tnt_twitter.url_cache[url].title;
+				
+				console.log(tnt_twitter.url_cache[url]);
 
-				$t.html(title);
 				if( !long_url.match(/https?/) ) long_url = 'http://'+long_url;
 				$t.attr('href',long_url);
-				$t.attr('title',long_url);
-				$t.text(long_url)
+				$t.attr('title',title);
+				if( title.length > 33 )
+					$t.text(title.slice(0,30)+'...');
+				else
+					$t.text(title)
 				$t.addClass('expanded');
 			}
 			
@@ -1683,21 +1687,6 @@ tnt_twitter = {
 							}
 						}
 					})
-				}
-				else if( nowww_domain == 'bit.ly' || nowww_domain == 'j.mp' )
-				{
-					tnt_twitter.ajax({
-						url:  tnt_twitter.bitly_api_url + 'expand' + tnt_twitter.bitly_api_key + '&format=json&shortUrl=' + encodeURIComponent(url),
-						callback: function(resp) {
-							if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
-							eval('var resp = ' + resp.responseText);
-							if( resp.statusCode == 'ERROR' ) return
-							var long_url = null;
-							for( result in resp.results ) long_url = resp.results[result].longUrl;
-							
-							tnt_twitter.save('url_cache',url,{long_url:long_url,title:long_url},function(){ tnt_twitter.expand_urls($tweet); })
-						}
-					});
 				}
 				else
 				{	
