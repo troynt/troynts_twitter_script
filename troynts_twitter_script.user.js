@@ -8,6 +8,12 @@ scr_meta=<><![CDATA[
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
 // @include		https://www.twitter.com*
+// @exclude     http://twitter.com/account/*
+// @exclude     https://twitter.com/account/*
+// @exclude     http://twitter.com/logout*
+// @exclude     https://twitter.com/logout*
+// @exclude     https://twitter.com/invitations
+
 // ==/UserScript==
 ]]></>;
 
