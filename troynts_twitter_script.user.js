@@ -1728,6 +1728,17 @@ tnt_twitter = {
 				$t.replaceWith(embed_html);
 				
 			}
+			else if( videos_okay && domain.indexOf('youtu.be') > -1 )
+			{
+				var video_id = url_parts[1];
+				var title = $t.attr('title')
+				if( title ) $t.text(title);
+				
+				var embed_html = '<object width="425" height="373"><param name="movie" value="http://www.youtube.com/v/' +
+							video_id + '&rel=0&border=0"></param><param name="wmode"' +
+							'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&rel=0&border=0" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>'				
+				$t.replaceWith(embed_html);
+			}
 			else if( images_okay && url.match('movapic.com/pic/([^\"]+)') )
 			{
 				$t.addClass('expanded');
