@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		11.0
+// @version		11.1
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -286,13 +286,13 @@ var clickablenow = function () {
 /*
 Note: remember to 
 ADD
-j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms, pic.gd to short_url_domains
+j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms, pic.gd, ez.ly to short_url_domains
 REMOVE
 yfrog.com
 when updating
 */
 tnt_twitter = {
-	short_url_domains:'bit.ly tinyurl.com j.mp flic.kr pic.gd lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
+	short_url_domains:'bit.ly tinyurl.com j.mp ez.ly flic.kr pic.gd lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
 	longurl_api_url: 'http://api.longurl.org/v1/',
 	bitly_api_url: 'http://api.j.mp/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
@@ -312,9 +312,7 @@ tnt_twitter = {
 			'show_replies':'Show nested replies for tweets',
 			'shrink_urls':'When tweet is over limit, urls are shrunk',
 			'search':'Adds search box in sidebar',
-			'video_embed':'Embed Video into Tweets',
-			'audio_embed':'Embed Audio Player into Tweets',
-			'image_embed':'Embed Images into Tweets',
+			'media_embed':'Embed video, images, and audio into Tweets when possible',
 			'add_retweet_button':'Add Retweet Button to Tweets',
 			'notes':'Allows you to keep notes on users',
 			'local_time':'Provide local time on user profiles',
@@ -322,7 +320,7 @@ tnt_twitter = {
 			'social_links':'Pulls in Social Links from Twellow.com',
 			'hide_twitter_defs':'Hide Twitter Definitions',
 			'friend_icons':'show smiley icons on friends ( users you follow and they follow back )',
-			'groups':'Allows you to group Twitterers together in searchable Groups',
+			//'groups':'Allows you to group Twitterers together in searchable Groups',
 			'@user_tab':'Searches for @user allowing you to view their mentions and replies.',
 			'tweet_char_count':'Shows character count in tweet meta, users get a "twoosh!" if over 139 characters',
 			'twitter_age':'Show date user joined Twitter'
@@ -335,9 +333,7 @@ tnt_twitter = {
 				'url_expansion':1,
 				'hashtags':1,
 				'show_replies':1,
-				'video_embed':1,
-				'audio_embed':1,
-				'image_embed':1,
+				'media_embed':1,
 				'add_retweet_button':1,
 				'hide_twitter_defs':1,
 				'friend_icons':1,
@@ -357,10 +353,11 @@ tnt_twitter = {
 				'social_links':1,
 				'twitter_age':1
 			},
+			/*
 			'friends_and_followers':{
-				'groups':0,
+				//'groups':0,
 				'show_bios':1
-			}
+			}*/
 	},
 	icons:{
 		'person':"data:image/gif,GIF89a%10%00%10%00%C4%1F%00U%80%A6p%9E%C5%1E1ST%80%A5%A2wJPy%A1(%3Df%B3%95s-GqDh%93%F2%E8%DE%236%5C%EF%E2%D6R%7C%A3g%95%BBMu%9D%C9%9Bu'%3Ce%CE%A5%83%8D%B5%D86S%80.Grhw%7F%C3%94h8V%83%B1vE%89a2%E9%D7%C6%AA%D0%F2~%AC%D5%FF%FF%FF%FF%FF%FF!%F9%04%01%00%00%1F%00%2C%00%00%00%00%10%00%10%00%00%05s%E0'%8E%5E%E9%8D(%EAi%ACv%A6%A4%06e%B4%0B%7F%ABD%EFv%BAf%9B%E0%26%D3S%11%18%9A%60%92%F0R%5D%14%87%60%F4%D2%24Y.%C2%CD%05S%C5%018%98%8Bx%0Bnz%BE%9D%0Ef%8D%E9L8%88%D7%99%93%AEw%1C%81ND%3E%E0%14%E8i%01%1C%06%1D%02%7C~%80%1D%82%84%86%24%0D%7F%1C%91%91%0B%8D*%1E%0F%09%18%14%15%7B%5D%24%26%25)!%00%3B",
@@ -550,7 +547,7 @@ tnt_twitter = {
 			
 			if( tnt_twitter.can('twitter_age') ) tnt_twitter.profile_add_twitter_age();
 			
-			if( tnt_twitter.can('groups') ) tnt_twitter.profile_add_groups();
+			//if( tnt_twitter.can('groups') ) tnt_twitter.profile_add_groups();
 			
 			//if( tnt_twitter.can('social_links') ) tnt_twitter.profile_add_social_links();			
 			if( tnt_twitter.can('local_time') ) tnt_twitter.profile_local_time();
@@ -1016,6 +1013,7 @@ tnt_twitter = {
 	},
 	group_control:function(user,position)
 	{
+		return;
 		if( !tnt_twitter.can('groups') ) return;
 		var group_html = '<div class="tnt-groups"><strong>Groups:</strong> <span class="tnt-group-list"></span><button class="small add-group" style="width:6em" class="small">Add Group</button>'
 		group_html += '<div class="group-add" style="display:none;"><select class="group-select">'+tnt_twitter.group_get_opts()+'</select><button class="tnt-okay small">OK</button>'
@@ -1207,6 +1205,20 @@ tnt_twitter = {
 				$status.val(orig_update);
 			}
 			
+			//shorten youtube urls
+			if( orig_update.indexOf('youtube.com/watch?v=') > -1 )
+			{
+				
+				var youtube_matches = orig_update.match(/https?:\/\/www\.youtube\.com\/watch[?]v=[\w|&|=]+/,'gi');
+				
+				for( var i = 0; i < youtube_matches.length; i++ )
+				{
+					var new_youtube_url = youtube_matches[i].split('&')[0].replace('http://www.youtube.com/watch?v=','http://youtu.be/');
+					orig_update = orig_update.replace(youtube_matches[i],new_youtube_url);
+				}
+				$status.val(orig_update);
+			}
+			
 			if( $status.length != 1 || orig_update.length < 140 ) return;
 					
 			// from http://userscripts.org/scripts/show/39042
@@ -1220,7 +1232,7 @@ tnt_twitter = {
 				var url_parts = domain.split('/');
 				domain = url_parts.length > 1 ? url_parts[0] : domain;
 								
-				if( url.length < 20 || tnt_twitter.short_url_domains.indexOf(domain) > -1 ) continue;
+				if( url.length < 23 || tnt_twitter.short_url_domains.indexOf(domain) > -1 ) continue;
 				window.setTimeout(function(){
 					GM_xmlhttpRequest({
 						method:'GET',
@@ -1643,15 +1655,13 @@ tnt_twitter = {
 			if( tnt_twitter.url_cache[url] )
 			{
 				var long_url = tnt_twitter.url_cache[url].long_url;
-				var title = tnt_twitter.url_cache[url].title;
-				
-				console.log(tnt_twitter.url_cache[url]);
+				var title = tnt_twitter.url_cache[url].title || tnt_twitter.url_cache[url].long_url
 
 				if( !long_url.match(/https?/) ) long_url = 'http://'+long_url;
 				$t.attr('href',long_url);
-				$t.attr('title',title);
+				$t.attr('title',title + ' ('+ long_url +')');
 				if( title.length > 33 )
-					$t.text(title.slice(0,30)+'...');
+					$t.text($.trim(title.slice(0,30))+'...');
 				else
 					$t.text(title)
 				$t.addClass('expanded');
@@ -1661,57 +1671,33 @@ tnt_twitter = {
 			url_parts = url.split('/');
 			domain = url_parts.length > 1 ? url_parts[0] : url;
 			nowww_domain = domain.replace('www.','');
-			
-			var images_okay = tnt_twitter.can('image_embed')
-			var videos_okay = tnt_twitter.can('video_embed')
-			var audio_okay = tnt_twitter.can('audio_embed')
-							
+										
 			if( tnt_twitter.short_url_domains.indexOf(nowww_domain) > -1 && !( domain == 'ping.fm' && url_parts[1] == 'p' ) )
 			{
-				/**
-				 * Adding Detection for TinyURL and Bitly so if LongURL services
-				 * go down, I still have decent coverage.
-				 */
-				if( nowww_domain == 'tinyurl.com' )
-				{
-					tnt_twitter.ajax({
-						url:  'http://tinyurl.com/preview.php?num='+url_parts[1],
-						callback: function(resp) {
-							if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
-							$resp = $(resp.responseText);
-							var $redirect_link = $resp.find('#redirecturl');
-							if( $redirect_link.length == 1 )
-							{
-								var long_url = $redirect_link.attr('href');
-								tnt_twitter.save('url_cache',url,{long_url:long_url,title:long_url},function(){ tnt_twitter.expand_urls($tweet); })
-							}
-						}
-					})
-				}
-				else
-				{	
-					tnt_twitter.ajax({
-						url:  'http://api.longurl.org/v1/expand?format=json&url=' + encodeURIComponent(url),
-						callback: function(resp) {
-							if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
-							var link = eval('(' + resp.responseText + ')');
-							if (typeof(link.messages) !== 'undefined') { return resp; }
-														
-							tnt_twitter.save('url_cache',url,link,function(){
-								tnt_twitter.expand_urls($tweet);
-							});
-							
-						}
-					});
-				}
+				tnt_twitter.ajax({
+					url:  'http://api.longurl.org/v1/expand?format=json&url=' + encodeURIComponent(url),
+					callback: function(resp) {
+						if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
+						var link = eval('(' + resp.responseText + ')');
+						if (typeof(link.messages) !== 'undefined') { return resp; }
+													
+						tnt_twitter.save('url_cache',url,link,function(){
+							tnt_twitter.expand_urls($tweet);
+						});
+						
+					}
+				});
 				return;
 			}
-			else if( images_okay && domain.indexOf('twitpic.com') > -1 )
+			
+			if( !tnt_twitter.can('media_embed') ) return
+			
+			else if( domain.indexOf('twitpic.com') > -1 )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://twitpic.com/show/thumb/'+ url_parts[1] + '" />');
 			}
-			else if( videos_okay && url.indexOf('youtube.com/watch?v=') > -1 )
+			else if( url.indexOf('youtube.com/watch?v=') > -1 )
 			{
 				var video_id = url.match('=([a-zA-Z_0-9\-]+)')[1];
 				var title = $t.attr('title')
@@ -1723,7 +1709,7 @@ tnt_twitter = {
 				$t.replaceWith(embed_html);
 				
 			}
-			else if( videos_okay && domain.indexOf('youtu.be') > -1 )
+			else if( url.match('youtu.be/.+') )
 			{
 				var video_id = url_parts[1];
 				var title = $t.attr('title')
@@ -1734,50 +1720,50 @@ tnt_twitter = {
 							'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&rel=0&border=0" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>'				
 				$t.replaceWith(embed_html);
 			}
-			else if( images_okay && url.match('movapic.com/pic/([^\"]+)') )
+			else if( url.match('movapic.com/pic/([^\"]+)') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://image.movapic.com/pic/m_' + url_parts[2] + '.jpeg" />');
 			}
-			else if( videos_okay && url.match('beta.twiddeo.com/([a-zA-Z0-9]+)') )
+			else if( url.match('beta.twiddeo.com/([a-zA-Z0-9]+)') )
 			{
 				var twiddeo_id = url.match('beta.twiddeo.com/([a-zA-Z0-9]+)')
 				if( twiddeo_id ) twiddeo_id = twiddeo_id[1]
 				var embed_html = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" id="twiddeoPlayer" style="margin: 0pt; padding: 0pt;" width="420" height="325"><param name="allowscriptaccess" value="always" /><param name="wmode" value="transparent" /><param name="movie" value="http://beta.twiddeo.com/embed/_gm/vid=' + twiddeo_id + '" /><param name="quality" value="high" /><param name="bgcolor" value="#81b5c3" /><embed src="http://beta.twiddeo.com/embed/_gm/vid=' + twiddeo_id + '" quality="high" bgcolor="#81b5c3" wmode="transparent" allowscriptaccess="always" swliveconnect="true"  name="twiddeoPlayer" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" width="420" height="325" allowfullscreen="true"></embed></object>'
 				$t.replaceWith(embed_html);
 			}
-			else if( videos_okay && url.match(/vimeo\.com\/(\d+)/) )
+			else if( url.match(/vimeo\.com\/(\d+)/) )
 			{
 				var clip_id = url.match(/vimeo\.com\/(\d+)/)[1];
 				var embed_html = '<object width="400" height="225"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo..com&amp;show_title=1&show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="allywas" width="400" height="255"></embed></object>'
 				$t.replaceWith(embed_html);
 			}
-			else if( videos_okay && url.match('twitvid.com/\.+') )
+			else if( url.match('twitvid.com/\.+') )
 			{
 				var embed_url = 'http://' + url.replace('twitvid.com/','twitvid.com/player/');
 				$t.addClass('expanded');
 				$t.html('<object width="425" height="344"><param name="movie" value="'+embed_url+'"></param><param name="allowscriptaccess" value="always"></param><param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="'+embed_url+'" quality="high" allowscriptaccess="always" allowNetworking="all" allowfullscreen="true" wmode="transparent" height="344" width="425"></object>');
 			}
-			else if( images_okay && url.match('yfrog\.com/([0-9a-zA-Z]+)') )
+			else if( url.match('yfrog\.com/([0-9a-zA-Z]+)') )
 			{
 				var pic = url.match('yfrog\.com/([0-9a-zA-Z]+)');
 				$t.addClass('expanded');
 				if (pic[1])
 					$t.html('<img class="tnt-image" alt="' + url + '" src="http://yfrog.com/'+pic[1]+'.th.jpg" />')
 			}
-			else if( images_okay && url.match('znl.me/\.+') )
+			else if( url.match('znl.me/\.+') )
 			{
 				$t.html('<img class="tnt-image" src="http://www.zannel.com/webservices/content/'+ url_parts[1] +'/Image-568x758-JPG.jpg" />')
 				$t.addClass('expanded');
 			}
-			else if( images_okay && url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)') )
+			else if( url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)') )
 			{
 				var pic = url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)');
 				$t.addClass('expanded');
 				if( pic[1] )
 					$t.html('<img class="tnt-image" alt="'+url+'" src="http://images.bcphotoshare.com/storages/' + pic[1] +'/thumbnail.jpg" />');
 			}
-			else if( images_okay && url.match('1day1shot\.jp/photos/') )  
+			else if( url.match('1day1shot\.jp/photos/') )  
 			{  
 				tnt_twitter.ajax({  
 					url: $t.attr('href'),  
@@ -1794,22 +1780,22 @@ tnt_twitter = {
 					}  
 				});  
 			}
-			else if( images_okay && url.match('twitvideo.jp/\.+') )
+			else if( url.match('twitvideo.jp/\.+') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://twitvideo.jp/img/display/'+ url_parts[1] + '" />');
 			}
-			else if( images_okay && url.match('\.(jpg|jpeg|gif|png)$') )
+			else if( url.match('\.(jpg|jpeg|gif|png)$') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" alt="'+url+'" src="http://'+url+'" />')
 			}
-			else if( audio_okay && url.match('\.(mp3|ogg|wav)$') )
+			else if( url.match('\.(mp3|ogg|wav)$') )
 			{
 				$t.addClass('expanded');
 				$t.after('<br /><object type="application/x-shockwave-flash" data="'+ audio_player +'" width="160" height="20"><param name="wmode" value="transparent" /><param name="movie" value="'+ audio_player +'" /><param name="flashvars" value="'+$.param({'mp3':$t.attr('href')})+'" /></object>');
 			}
-			else if( images_okay && url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
+			else if( url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
 			{
 				pid = url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/);
 				$t.addClass('expanded');
@@ -1833,7 +1819,7 @@ tnt_twitter = {
 					});
 				}
 			}
-			else if( images_okay && url.match('tweetphoto.com/\.+') )
+			else if( url.match('tweetphoto.com/\.+') )
 			{
 				tnt_twitter.ajax({
 					url: $t.attr('href'),
@@ -1845,12 +1831,12 @@ tnt_twitter = {
 					}
 				})
 			}
-			else if( images_okay && domain == 'hellotxt.com' && url_parts[1] == 'i' )
+			else if( domain == 'hellotxt.com' && url_parts[1] == 'i' )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://hellotxt.com/image/'+url_parts[2]+'.m.jpg" />')
 			}
-			else if( images_okay && domain == 'ping.fm' && url_parts[1] == 'p' )
+			else if( domain == 'ping.fm' && url_parts[1] == 'p' )
 			{
 				tnt_twitter.ajax({
 						url: $t.attr('href'),
