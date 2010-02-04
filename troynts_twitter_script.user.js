@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name		@troynt's Twitter Script
 // @namespace	http://twitter.com/troynt
 // @description	Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version		11.1
+// @version		11.2
 // @include		http://twitter.com*
 // @include		http://www.twitter.com*
 // @include		https://twitter.com*
@@ -250,6 +250,7 @@ var clickablenow = function () {
 									+ '<param name="allowscriptaccess" value="always" />'
 									+ '<embed src="'+link+'" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="'+width+'" height="'+height+'" />';
 						}
+
 						else
 						{
 							elem.type="application/x-shockwave-flash";
@@ -1830,6 +1831,25 @@ tnt_twitter = {
 						$t.html(img).addClass('expanded');
 					}
 				})
+			}
+			else if( images_okay && domain == 'twitgoo.com' )
+			{
+				if(url_parts.length == 2)
+				{
+					tnt_twitter.ajax({
+							url: "http://twitgoo.com/api/message/info/" + url_parts[1],
+							callback:function(resp) {
+								if( resp.status != 200 ) return;
+								resp = resp.responseText;
+								
+								var src = resp.between('<thumburl>', '</thumburl>');
+								if( src.length > 0 &&  src.match('\.(jpg|jpeg|gif|png)') )
+								{
+									$t.html('<img class="tnt-image" src="'+src+'" />');
+								}
+							}
+					});
+				}				
 			}
 			else if( domain == 'hellotxt.com' && url_parts[1] == 'i' )
 			{
