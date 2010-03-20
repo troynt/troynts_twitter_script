@@ -398,10 +398,10 @@ tnt_twitter = {
     var css = ".hentry.to_me { background:#ffe; }";
     
     /* media embed */
-    css += '.tnt-image { float:right; vertical-align:middle; }'
-    css += '.tnt-youtube-video-thumb { position:relative; float:right; }'
-    css += '.tnt-play-icon { position:absolute; bottom:0; right:0; background:url('+icons.play+') no-repeat; width:34px; height:34px; }';
-    
+    css += '.tnt-image { float:right; vertical-align:middle; }';
+    css += '.tnt-youtube-video-thumb { position:relative; float:right; }';
+    css += '.tnt-play-icon { position:absolute; bottom:0; right:0; width:34px; height:34px; }';
+
     /* retweet */
     css += 'a.tnt-retweet { width:15px; height:12px; padding:0 !important; display:block; visibility:hidden; background:url("'+ icons.retweet +'") no-repeat 0 0; }';
     css += 'a.tnt-retweet:hover { background-position:0 -12px; }'
