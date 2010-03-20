@@ -86,7 +86,8 @@ GM_registerMenuCommand("Clear Twitter Cache", function(){
 var audio_player = "http://www.swfcabin.com/swf-files/1256355627.swf"
 
 var icons = {
-	retweet:"data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%0F%00%00%00%18%08%06%00%00%00%25%05%A7i%00%00%00%19tEXtSoftware%00Adobe%20ImageReadyq%C9e%3C%00%00%01%08IDATx%DAb%BC%7B%F7.%03%01%A0%09%C4%9E%40%BC%0C%88_%20K%B00%10%06K%81%D8%10%88%8D%818%1AY%82%89%80FV%20%96%80%B2e%D0%25%91m%D6%06bo%20V%06bf%20%BE%09%C4%0B%80%98%1D*%FF%1F%9F%E6d%20%F6%02bY%A8%E6%07%40%7C%18%88%19%A1%F2%20%17%04%001%0FT~3L%F36h%A0%20%03u%206%03%E2%DFH%FC%F5H%F2%5B%40%9A%83%914%5E%06%E2CP%DB%DE%03%F1J%20.%C3%11%1E%2C%20%CD%FEP%CE%0F%20%B6%87jB%06%3F%A0%F4'%A8%D7%DE%01%B1%08%10%1F%60A%0A%88%2F%40%FC%19%8B%0D%07%A0%81%C8%07%C4%B7%80%F8%12rT%FD%83%B29%81X%00%8B%E6%83H%EC%0BP%0B%40%AEIaB%8A%0An%24'%22%83%C5%40%7C%04%CAf%84%866HO%24%C8%D9%FD%40%2C%06%C4%3B%A1N%C7%06%5C%80%B8%02%88%DD%80%98%17jH%17cZZ%DAh%DA%1EM%DB%C31m%03%04%18%00%D9%C2X%98%E5A~X%00%00%00%00IEND%AEB%60%82"
+	retweet:"data:image/png,%89PNG%0D%0A%1A%0A%00%00%00%0DIHDR%00%00%00%0F%00%00%00%18%08%06%00%00%00%25%05%A7i%00%00%00%19tEXtSoftware%00Adobe%20ImageReadyq%C9e%3C%00%00%01%08IDATx%DAb%BC%7B%F7.%03%01%A0%09%C4%9E%40%BC%0C%88_%20K%B00%10%06K%81%D8%10%88%8D%818%1AY%82%89%80FV%20%96%80%B2e%D0%25%91m%D6%06bo%20V%06bf%20%BE%09%C4%0B%80%98%1D*%FF%1F%9F%E6d%20%F6%02bY%A8%E6%07%40%7C%18%88%19%A1%F2%20%17%04%001%0FT~3L%F36h%A0%20%03u%206%03%E2%DFH%FC%F5H%F2%5B%40%9A%83%914%5E%06%E2CP%DB%DE%03%F1J%20.%C3%11%1E%2C%20%CD%FEP%CE%0F%20%B6%87jB%06%3F%A0%F4'%A8%D7%DE%01%B1%08%10%1F%60A%0A%88%2F%40%FC%19%8B%0D%07%A0%81%C8%07%C4%B7%80%F8%12rT%FD%83%B29%81X%00%8B%E6%83H%EC%0BP%0B%40%AEIaB%8A%0An%24'%22%83%C5%40%7C%04%CAf%84%866HO%24%C8%D9%FD%40%2C%06%C4%3B%A1N%C7%06%5C%80%B8%02%88%DD%80%98%17jH%17cZZ%DAh%DA%1EM%DB%C31m%03%04%18%00%D9%C2X%98%E5A~X%00%00%00%00IEND%AEB%60%82",
+	play:"data:image/gif,GIF89a%22%00%22%00%F7%FB%00%F7%F7%F5%FB%FB%F9%EA%EA%E8%F4%F4%F2%EB%EB%E9%D2%D2%D2%E2%E2%E0%E4%E3%E1%D4%D4%D4%F0%F0%EE%EE%EE%EC%EC%EC%EA%F1%F1%EF%EF%EF%ED%E1%E1%DF%D4%D4%D3%F5%F5%F3%E9%E9%E7%E1%E1%E0%F8%F7%F5%ED%ED%EB%FA%FB%F8%D2%D2%D1%ED%ED%ED%D3%D3%D2%F3%F4%F1%DC%DC%DA%FB%FB%F8%EE%EE%EE%CE%CE%CC%EB%EC%E9%FB%FC%F9%DB%DB%DA%DE%DE%DC%D6%D6%D6%D5%D5%D5%D8%D8%D6%06%B3%EB%D9%D9%D7%CF%CF%CE%8E%B2%E3%05i%B6%05%BA%EE%D3%D3%D1%D0%D0%D0%08%A0%E3%ED%EE%EC%FF%FF%FE4_%99%EF%EE%EC%CA%CA%C8%B9%B9%B7%85%AB%E0%0Ar%C4%0Fg%C8%03%C5%F4%0B%89%D8%91%A6%C2%1AU%8B%EA%EB%E9%0AN%ACKo%9F%5E%A3%DF-%5B%96%8F%AE%DA%B3%B2%B0%2Fh%A0%DD%DD%DB%E0%E0%DE%D3%D4%D32c%9B%C8%D9%F1%DA%D9%D8f%96%D8%0Es%CE%D4%D4%D2%A5%C0%E6%BA%BA%B9%A4%A4%A3%8D%AE%DC0f%9D%02%5E%A10d%9B%9B%BA%E6%EA%EA%E9%3Bh%A2%C4%C4%C3%AB%AD%AB%01K%94%AA%AA%A8p%8B%9C%0C%83%D5_%9A%DB%98%B5%DF%07I%A0%C6%C6%C4%D3%D2%D2N%8B%CD%B0%C8%EB%7B%96%B9%19%5D%96u%9E%D4%A9%C1%E2%C8%C8%C6%BB%C8%D9%F9%F9%F6%09%9A%E08d%9Dn%9A%D3Fq%A9%CA%C9%C8%0Bl%C2%EC%ED%EB%E3%E3%E2%A1%BE%E7%E6%EA%ED%85%A5%D18i%90%09%97%DE%EC%ED%EA4%60%9A%11%5B%C3%93%B5%E4%A7%AD%AC%84%AF%E2%10E%8B%05%B6%ED%D8%E0%E8a%A2%DE.g%9E%0C%5B%B8W%7C%AD1%60%99Js%A9%10%60%C5%09%9C%E1%10f%C8%C3%C3%C1%08%A3%E4*X%92%EF%EF%EE%0EX%B9%04%C2%F2%7C%9A%C2%8E%B1%E3%0Dz%D1%81%A5%D8%BA%BA%B8%B1%C9%EB%E3%E2%E1Fo%96%89%B2%E3%DF%DF%DDW%7D%AE%B3%B3%B2%B1%B2%B2_%91%D7S%7F%B8S%83%C5%D0%D0%CF%BB%BB%B9%0Ax%C8%C7%C7%C5Rv%A5%60%93%D8%07%81%CA%07%A4%E5%BC%BC%BA%81%90%A0%3FWv%86%AB%E0%0A%60%B8%DB%DB%D9%0B%8C%D9%E5%E7%E6%84%AE%E2%5Ep%82Bl%A4d%8D%C4%0C%7F%D4%82%9C%BE%07K%A4%E6%E8%E7%0Ev%CF%09%9B%E0%EB%EC%EB%DA%DA%D8%8D%AF%DE%E7%E9%E7%0Au%C6%F9%FA%F7%EB%EC%EAalz%0C%7D%D0%EB%EB%EA%5E%A0%DE%9E%B8%DB4%60%99%AD%AD%ABHq%A8%07%A9%E7%2Fh%9F%96%9F%9F%B5%C3%D2%A0%A1%9F%D5%D5%D3%10F%8E%94%B5%E4%84%84%84%0A%92%DC%0A%91%DC%1DH%81.i%A0%0Be%BE%BF%CA%D7%0A%5C%B4%AA%AC%AE%60%96%D9%9D%BB%E6%E8%EA%E8h%89%B3%0A%8F%D8%11%5C%C3%A5%A6%A6%B1%B1%AF%09y%C9%B0%B1%B1%05A%8A%EF%EF%EC%AC%BC%CF%C1%C1%C0%A8%C1%E3%C1%C1%BF%F7%F8%F6%85%AC%E1%9F%A7%A7%E5%E5%E3%FC%FC%FA%F9%F9%F7%D3%D3%D3%F2%F2%F0%F3%F3%F1%E6%E6%E4%D1%D1%D1%E7%E7%E5%F8%F8%F6%E8%E8%E6%E3%E3%E1%F6%F6%F4%E4%E4%E2%FA%FA%F8%FF%FF%FF%00%00%00%00%00%00%00%00%00%00%00%00!%F9%04%01%00%00%FB%00%2C%00%00%00%00%22%00%22%00%40%08%FF%00%F7%5D%18%F1%00%C1%83%82%06%0B%1ED%C0%B0!%C2%84%0D%11%14%19qa%DF%3B%7C%13%00h%04PO%23%BEc%85%D0%0C%C0%B7%B1d%3A%00%19K%02%80%F0%0EL%8C%06%0D%12%C8%84%99%E0%0E%9478%ECD%DB%A2%C4%86!oyx%F4qC%2F%A6%CC%04%8Cb%14(%40%CF%9E%D3%A7N%0D%8C%EA%81-K%10t%1DL8%60%D7%14%AAWz%058%9C%00!%C1%80%01%09%12%1C%94%5D%7B%16%ADY%07%0E%CC%1A%80%FB%D6%00%88%13%1C%DE%B9%DB%A0%AF%AF%DF%BF%80%03%0B%DE%E0%EE%DD%BBx%19%E2)N%1Co%40%02%18%92%E4L%D1%C6%84N%A6e%09%E0!n%BC%B8%F1%00x%EF%0A%10X%40%A0%B4%07%D3%B6%02%D5%90%D6BM%A9(u%94%89kb%05C%08y%02J%97%5E%20%A0%C0%BC%7B%F9%82%0B%0F~on%5C%E0%C3%93%2B%BF7%EF%DD%8E%17%ED%A2Ko%F7Az%80%E8%D7%A7K%AF.%FD%05%15%C3%F5%DC%89%FFw%17%9E%7C%BD%F0%E7%DD%E9%1B%BF%BE%3Cy%F1%E1%D3%D43%0C%01%9F%FD%FB%F6%E1%AD%E9r%84%D8%A0r%0C%D4%87%DF%80%F7%B1%F4%0E%03%F0%24%A8%60%82%0D%E0%C1%C6%25%7C%BC%A2%0E%0D%AA%EC%22K%2C%D6(%80%E0%82%092%10%1A%05%0A%80%A8%C0%88%14P%B0%8D%10%E1%98%E2%C8%0D~%1C2%CB*%E3%A4%02%0D8%2B%18%20%00%88%22.%B0T%04%02%F4%C8%23%8F%02%D0C%88%20%D7%60a%C9%3AWhb%CE'%1A%E4c%8F%8FP%0A%10A%01%16%C8C%8F%3CX%5E%89%A5%01Ht%20C%07%24%10%11%07%3BXfI%8F%96e%CA%C3%8E%05%2CT%12%DC%01%07%E4%13'%9Ct%D2yO%9D%F9%DC%09%A7pq%DE%C3%02%07%F3%10%A0O%05%83%F6Eh%A1%82%05V%01%A1%BE%083%0F%07%05%B8%13%40%00%FAL%3Ai_%94RZ%E9%A6%96vz%E9%A4%EE%14%A0%17_%89%96j*a%86q4%C1%AA%E7%B5%FA%C7%1C%E7M%FFP%8F%AC%AD%D6jkG%F4%11h_%3CU%98%F1%087%B9%0C%20%20~%00%E8j%A0g%03%24%2B%ECg%C5%3C!%06%25%E7t2%C6%2F%0Cx%06%C1%B2%CA%26%1B%8Fa%D5j%96%A0b%F14%00C%19z%A0%80%02%24%CF%00%D1%06-%0Bt%0B%EE%B7%F1x%88A%03%0C%24P%EF%BD%0C%C0aD%18%80%F80%0C%17%D9%90%C2I%12%9E8%93%03%05%F4%CA%C4%40%BD%09%60P%80%0B%0D(%10%F1%88%12%7B%90L%2F%B8%94P%82%22%AD%DC%82H%23%5EL%03%8C%13%ACP%0C%139.%2C5%DA%02%2C%B7%BC%00%2F%D4%84%D2%82%0A*%20%D3M%0A%3A%C0%C2%CC%0C_%D4%18%81%CB%A4-%95%9Bn%A5%F5%E8%8A%14%D5D%12L%0Adh%B1%C7%26%A7%C8%40%82%03%F2D%40%40%8F%3D%120%25S%5E%3D%C5%CE%0F%B5%2C%82%CA7%C6Lr%C6%12!%E4%D3U%D7%F6%80U%E5%99p%C3%ED%403%89%CC%00%8A(%18%0Cq%8F%95q%F7C%0D7%95%F9%A8%C9%0E%99%83%CBs%0F%26%BA%98%A0%81%01%F9%14%3E%F8%E3%8Fc%F9%B8%05%BF)g%F9%E5%983%87%80%06%EC%DC%E3%F9%E7%A0%87.%FA%E8%ECh%80%80%40%22%CC%A3%FA%EA%AC%B7%EE%FA%EB%22T%14%10%00%3B"
 }
 
 var social_icons = {
@@ -298,7 +299,6 @@ tnt_twitter = {
 	bitly_api_url: 'http://api.j.mp/',
 	bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
 	flickr_api_key: '2a9d986b3c683b9cf4ecb69b0e80f8f8',
-	flickr_secret: '46b0b3c471dbd5f8',
 	yui_group_pipe: 'http://pipes.yahoo.com/pipes/pipe.run?_id=PHxWv2ch3hG2BNL2DYSbGg&_render=json&users=',
 	ajax_queue: [],
 	ajax_tmp: {},
@@ -313,15 +313,16 @@ tnt_twitter = {
 			'show_replies':'Show nested replies for tweets',
 			'shrink_urls':'When tweet is over limit, urls are shrunk',
 			'search':'Adds search box in sidebar',
-			'media_embed':'Embed video, images, and audio into Tweets when possible',
-			'add_retweet_button':'Add Retweet Button to Tweets',
+      'video_embed':'Embed video into tweets',
+      'audio_embed':'Embed audio player into tweets',
+      'image_embed':'Embed images into tweets', 
+			'add_retweet_button':'Add comment button to tweets',
 			'notes':'Allows you to keep notes on users',
 			'local_time':'Provide local time on user profiles',
 			'map_location':'Map location of user if lat long are present',
 			'social_links':'Pulls in Social Links from Twellow.com',
 			'hide_twitter_defs':'Hide Twitter Definitions',
 			'friend_icons':'show smiley icons on friends ( users you follow and they follow back )',
-			//'groups':'Allows you to group Twitterers together in searchable Groups',
 			'@user_tab':'Searches for @user allowing you to view their mentions and replies.',
 			'tweet_char_count':'Shows character count in tweet meta, users get a "twoosh!" if over 139 characters',
 			'twitter_age':'Show date user joined Twitter'
@@ -334,7 +335,9 @@ tnt_twitter = {
 				'url_expansion':1,
 				'hashtags':1,
 				'show_replies':1,
-				'media_embed':1,
+				'video_embed':1,
+				'audio_embed':1,
+				'image_embed':1, 
 				'add_retweet_button':1,
 				'hide_twitter_defs':1,
 				'friend_icons':1,
@@ -356,7 +359,6 @@ tnt_twitter = {
 			},
 			/*
 			'friends_and_followers':{
-				//'groups':0,
 				'show_bios':1
 			}*/
 	},
@@ -381,10 +383,8 @@ tnt_twitter = {
 		tnt_twitter.username_cache = eval(GM_getValue('tnt_twitter.username_cache')) || {};
 		tnt_twitter.friend_cache = eval(GM_getValue('tnt_twitter.friend_cache')) || {};
 		tnt_twitter.stranger_cache = eval(GM_getValue('tnt_twitter.stranger_cache')) || {}; //strangers are users you checked their friend status and they are not your friend.
-		tnt_twitter.group_cache = eval(GM_getValue('tnt_twitter.group_cache')) || {};
 		tnt_twitter.social_link_cache = eval(GM_getValue('tnt_twitter.social_link_cache')) || {};
 		tnt_twitter.social_graph_cache = eval(GM_getValue('tnt_twitter.social_graph_cache')) || {};
-		tnt_twitter.custom_searches = eval(GM_getValue('tnt_twitter.custom_searches')) || {};
 		
 		$session_user_id = $('meta[name=session-user-screen_name]');
 		if( $session_user_id.length == 1 )
@@ -396,6 +396,11 @@ tnt_twitter = {
 		/* tweets */
 		/* highlight tweets to you */
 		var css = ".hentry.to_me { background:#ffe; }";
+		
+		/* media embed */
+		css += '.tnt-image { float:right; vertical-align:middle; }'
+		css += '.tnt-youtube-video-thumb { position:relative; float:right; }'
+		css += '.tnt-play-icon { position:absolute; bottom:0; right:0; background:url('+icons.play+') no-repeat; width:34px; height:34px; }';
 		
 		/* retweet */
 		css += 'a.tnt-retweet { width:15px; height:12px; padding:0 !important; display:block; visibility:hidden; background:url("'+ icons.retweet +'") no-repeat 0 0; }';
@@ -444,10 +449,7 @@ tnt_twitter = {
 		css += ".tnt-friend-icon { float:none !important; margin:0 !important; position:absolute !important; bottom:0 !important; right:-2px !important; width:auto !important; height:auto !important }"
 		css += 'h2.thumb .tnt-friend-icon { bottom:0; margin-right:10px !important; float:none !important; }'
 		css += 'h2.thumb { height:73px; }'
-		
-		/* groups */
-		css += '.tnt-groups button { padding:0; } .tnt-groups .add-group { display:block; }'
-		
+				
 		/* nested replies */
 		css += '.status-body > .status { font-size:90%; margin-top:.5em; }'
 		css += '.status-body .photo { vertical-align:bottom; }'
@@ -512,7 +514,6 @@ tnt_twitter = {
 		if( $('#status').length == 1 )
 		{
 			if( tnt_twitter.can('friend_icons') && (!tnt_twitter.friend_cache || is_empty(tnt_twitter.friend_cache)) ) tnt_twitter.friend_refresh_cache()
-			tnt_twitter.profile_add_tabs();
 			var friends = new Array();
 			$('.vcard a.url').each(function(){
 				friends.push($(this).attr('href'));
@@ -547,9 +548,7 @@ tnt_twitter = {
 			if( tnt_twitter.can('@user_tab') ) tnt_twitter.profile_add_mentions();
 			
 			if( tnt_twitter.can('twitter_age') ) tnt_twitter.profile_add_twitter_age();
-			
-			//if( tnt_twitter.can('groups') ) tnt_twitter.profile_add_groups();
-			
+						
 			//if( tnt_twitter.can('social_links') ) tnt_twitter.profile_add_social_links();			
 			if( tnt_twitter.can('local_time') ) tnt_twitter.profile_local_time();
 			if( tnt_twitter.can('map_location') )tnt_twitter.profile_map();
@@ -584,13 +583,6 @@ tnt_twitter = {
 	run_livequery:function(){
 		$.livequery && $.livequery.run();
 	},
-	profile_add_groups:function(){
-		var user = tnt_twitter.profile_get_username();
-		
-		tnt_twitter.group_control(user,function($group_control){
-			$('.profile-side:first').after($group_control.addClass('profile-side').addClass('section'));
-		});
-	},
 	profile_add_mentions:function(){
 		var user = tnt_twitter.profile_get_username();
 		
@@ -623,25 +615,6 @@ tnt_twitter = {
 	 */
 	do_search:function( q )
 	{
-		if( q.indexOf('tnt-group:') == 0 )
-		{
-			tnt_twitter.group_search(q,function(resp){
-				tnt_twitter.clear_timeline();
-				$('#more,#pagination').remove();
-				for( label in tnt_twitter.custom_searches )
-				{
-					if( tnt_twitter.custom_searches[label] == q )
-					{
-						tnt_twitter.set_heading('<b>'+label+'</b> Group Search');
-					}
-				}
-				$.each(resp.tweets,function(idx,tweet){
-					tnt_twitter.load_tweet(tweet);
-				});
-				$('.saved-search-links .loading').removeClass('loading');
-			});
-			return;
-		}
 		$search_input = $('#sidebar_search_q');
 		if( $search_input.length == 1 )
 		{
@@ -696,7 +669,7 @@ tnt_twitter = {
 	 */
 	friend_refresh_cache:function()
 	{
-		console.log('getting friends list')
+		//console.log('getting friends list')
 		$.get('/direct_messages',function(resp){
 			$resp = $(resp);
 			$friends = $resp.find('#direct_message_user_id option');
@@ -775,13 +748,6 @@ tnt_twitter = {
 		
 		$tab.find('.remove-tab').click(function(){
 			var label = $(this).prev('a').text();
-			delete tnt_twitter.custom_searches[label];
-			if( tnt_twitter.group_cache[label])
-				delete tnt_twitter.group_cache[label];
-			window.setTimeout(function(){
-				GM_setValue('tnt_twitter.custom_searches',uneval(tnt_twitter.custom_searches));
-				GM_setValue('tnt_twitter.group_cache',uneval(tnt_twitter.group_cache));
-			},0);
 			$(this).parent().remove();
 			return false;
 		});
@@ -798,14 +764,6 @@ tnt_twitter = {
 			return false;
 		});
 		placement_func($tab);
-	},
-	group_add_tab:function(label,query)
-	{
-		tnt_twitter.add_tab(function($tab){
-			$('#group_searches ul').append($tab)
-		},label,function(){
-			tnt_twitter.do_search(query);
-		})
 	},
 	/**
 	 * Checks if script is allowed to perform ability.
@@ -1012,44 +970,6 @@ tnt_twitter = {
 
 		}	
 	},
-	group_control:function(user,position)
-	{
-		return;
-		if( !tnt_twitter.can('groups') ) return;
-		var group_html = '<div class="tnt-groups"><strong>Groups:</strong> <span class="tnt-group-list"></span><button class="small add-group" style="width:6em" class="small">Add Group</button>'
-		group_html += '<div class="group-add" style="display:none;"><select class="group-select">'+tnt_twitter.group_get_opts()+'</select><button class="tnt-okay small">OK</button>'
-		group_html += ' or <a href="#" class="tnt-cancel" href="#">Cancel</a></div></div>'
-		
-
-		$group_html = $(group_html);
-		
-		tnt_twitter.render_group_list(user,$group_html.find('.tnt-group-list'));
-		
-		$group_html.find('.tnt-cancel').click(function(){ $(this).parent().hide().parent().find('.add-group').show(); return false;})
-		$group_html.find('.tnt-okay').click(function(){
-			var group = $(this).parent().find('.group-select').val();
-			if( !group ) return false;
-			if( group == 'create' || group == 'Create a Group' )
-			{
-				var new_group = prompt('Group Name?');
-				if( new_group )
-				{
-					tnt_twitter.group_create(new_group);
-					group = new_group
-				}
-			}
-			tnt_twitter.add_user_to_group(user,group);
-			tnt_twitter.render_group_list(user,$(this).parent().parent().find('.tnt-group-list'))
-			$(this).parent().hide().parent().find('.add-group').show();
-			return false;
-		});
-		$group_html.find('.add-group').click(function(){
-			$(this).hide().parent().find('.group-add').show();
-			return false;
-		});	
-		
-		position($group_html);
-	},
 	/**
 	 * Processes friend on followers pages.
 	 * @param {jQuery} $friends
@@ -1075,34 +995,7 @@ tnt_twitter = {
 				
 			var user = tnt_twitter.user_from_url($user_link.attr('href'))
 			tnt_twitter.save_username(user);
-			
-			tnt_twitter.group_control(user,function($group_control){
-				$t.find('.person-actions:first').append($group_control);
-			});
 		})
-	},
-	/**
-	 * Adds Tabs to sidebar
-	 */
-	profile_add_tabs:function()
-	{
-		tnt_twitter.group_refresh_searches();
-		if( !is_empty(tnt_twitter.custom_searches) )
-		{
-			var $group_searches = $('<div id="group_searches" class="collapsible"><h2 class="sidebar-title"><span>Group Searches</span></h2><ul class="sidebar-menu"></ul></div>');
-			$group_searches.find('.sidebar-title').click(function(){
-				var $t = $(this);
-				var $p = $t.parent();
-				$t.next('ul').slideToggle();
-				if( $p.hasClass('collapsed') )
-					$p.removeClass('collapsed');
-				else
-					$p.addClass('collapsed');
-				return false;
-			})
-			$('#custom_search').after($group_searches);
-			$.each(tnt_twitter.custom_searches,function(label,query){ tnt_twitter.group_add_tab(label,query); });//this is just groups now	
-		}
 	},
 	profile_add_tab:function(label, callback, first )
 	{
@@ -1117,63 +1010,9 @@ tnt_twitter = {
 			return false;
 		}).parent().children('.remove-tab').click(function(){
 			var label = $(this).prev('a').text();
-			delete tnt_twitter.custom_searches[label];
-			if( tnt_twitter.group_cache[label])
-				delete tnt_twitter.group_cache[label];
-			window.setTimeout(function(){
-				GM_setValue('tnt_twitter.custom_searches',uneval(tnt_twitter.custom_searches));
-				GM_setValue('tnt_twitter.group_cache',uneval(tnt_twitter.group_cache));
-			},0);
 			$(this).parent().remove();
 			return false;
 		})
-	},
-	profile_add_custom_search_tab:function(label,query,trigger,temp,first)
-	{
-		return;
-		if( !temp )
-		{
-			tnt_twitter.custom_searches[label] = query
-			window.setTimeout(function(){
-				GM_setValue('tnt_twitter.custom_searches',uneval(tnt_twitter.custom_searches));
-			},0);
-		}
-		
-		html = '<li><a class="search-link" title="'+query+'" href="">'+label+'</a></li>'
-		
-		$('#primary_nav').prepend()
-		
-		tnt_twitter.profile_add_tab(label,function(){
-			
-			/*
-			$(window).unbind('scroll');
-			document.title = 'Twitter / Search for '+ label;
-			$('.timeline-header,.timeline-subheader').hide();
-			$('#loader').show();
-			if( $('body').attr('id') == 'profile' ) $('body').attr('id','');
-			tnt_twitter.load_search(query);
-			*/
-		},first);
-	},
-	group_refresh_searches:function()
-	{
-		$.each(tnt_twitter.group_cache,function(group,members){
-			var query = '';
-			var memberArr = new Array();
-			$.each(members,function(member,value){
-				memberArr[memberArr.length] = member;
-			});
-			if( memberArr.length > 0 ) query = 'from:'+memberArr.join(' OR from:');
-			if( query.length >= 140 )
-			{
-				query = 'tnt-group:'+ memberArr.join('+');
-			}
-			if( query == '' ) return;
-			tnt_twitter.custom_searches[group] = query;
-		});
-		window.setTimeout(function(){
-			GM_setValue('tnt_twitter.custom_searches',uneval(tnt_twitter.custom_searches));
-		},0);
 	},
 	clear_cache:function()
 	{
@@ -1441,7 +1280,7 @@ tnt_twitter = {
 			if(  $tweet.hasClass('root') && $tweet.siblings().filter('#'+tweet_id).length > 0 )
 			{
 				$tweet.remove();
-				console.log('removing duplicate '+tweet_id);
+				//console.log('removing duplicate '+tweet_id);
 			}
 
 			if( tnt_twitter.can('tweet_char_count') )
@@ -1691,80 +1530,94 @@ tnt_twitter = {
 				return;
 			}
 			
-			if( !tnt_twitter.can('media_embed') ) return
+			var audio_okay = tnt_twitter.can('audio_embed');
+			var video_okay = tnt_twitter.can('video_embed');
+			var images_okay = tnt_twitter.can('image_embed');
 			
-			else if( domain.indexOf('twitpic.com') > -1 )
+			if( images_okay && domain.indexOf('twitpic.com') > -1 )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://twitpic.com/show/thumb/'+ url_parts[1] + '" />');
 			}
-			else if( url.indexOf('youtube.com/watch?v=') > -1 )
+			else if( video_okay && ( url.indexOf('youtube.com/watch?v=') > -1 ) || url.match('youtu.be/.+') )
 			{
-				var video_id = url.match('=([a-zA-Z_0-9\-]+)')[1];
+				var video_id = null;
+        if (url.match('youtu.be/.+')) {
+			   video_id = url_parts[1];
+				 video_id = video_id.split('?')[0]
+		    }
+		    else 
+			    video_id = url.match('=([a-zA-Z_0-9\-]+)')[1];
+				
 				var title = $t.attr('title')
 				if( title ) $t.text(title);
 				
+				var video_params = $.param({
+					rel: 0,
+					border: 0,
+					autoplay: 1
+				});
 				var embed_html = '<object width="425" height="373"><param name="movie" value="http://www.youtube.com/v/' +
-							video_id + '&rel=0&border=0"></param><param name="wmode"' +
-							'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&rel=0&border=0" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>'				
-				$t.replaceWith(embed_html);
+							video_id + '&' + video_params +'"></param><param name="wmode"' +
+							'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&'+ video_params +'" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>';
+				$t.addClass('expanded');
+				$t.addClass('tnt-youtube-video-thumb');
+        $t.html('<img class="tnt-play-icon" src="'+icons.play+'" /><img title="click to play" src="http://img.youtube.com/vi/'+ video_id +'/1.jpg" />');
+				$t.click(function(){
+					$t.removeClass('tnt-youtube-video-thumb');
+					$t.replaceWith(embed_html);
+					return false;
+				});
+        $t.children('img').click(function(){
+          $(this).parent().trigger('click');
+          return false;
+        });
 				
 			}
-			else if( url.match('youtu.be/.+') )
-			{
-				var video_id = url_parts[1];
-				var title = $t.attr('title')
-				if( title ) $t.text(title);
-				
-				var embed_html = '<object width="425" height="373"><param name="movie" value="http://www.youtube.com/v/' +
-							video_id + '&rel=0&border=0"></param><param name="wmode"' +
-							'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&rel=0&border=0" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>'				
-				$t.replaceWith(embed_html);
-			}
-			else if( url.match('movapic.com/pic/([^\"]+)') )
+			else if( images_okay && url.match('movapic.com/pic/([^\"]+)') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://image.movapic.com/pic/m_' + url_parts[2] + '.jpeg" />');
 			}
-			else if( url.match('beta.twiddeo.com/([a-zA-Z0-9]+)') )
+			else if( images_okay && url.match('beta.twiddeo.com/([a-zA-Z0-9]+)') )
 			{
 				var twiddeo_id = url.match('beta.twiddeo.com/([a-zA-Z0-9]+)')
 				if( twiddeo_id ) twiddeo_id = twiddeo_id[1]
 				var embed_html = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" id="twiddeoPlayer" style="margin: 0pt; padding: 0pt;" width="420" height="325"><param name="allowscriptaccess" value="always" /><param name="wmode" value="transparent" /><param name="movie" value="http://beta.twiddeo.com/embed/_gm/vid=' + twiddeo_id + '" /><param name="quality" value="high" /><param name="bgcolor" value="#81b5c3" /><embed src="http://beta.twiddeo.com/embed/_gm/vid=' + twiddeo_id + '" quality="high" bgcolor="#81b5c3" wmode="transparent" allowscriptaccess="always" swliveconnect="true"  name="twiddeoPlayer" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" width="420" height="325" allowfullscreen="true"></embed></object>'
 				$t.replaceWith(embed_html);
 			}
-			else if( url.match(/vimeo\.com\/(\d+)/) )
+			else if( video_okay && url.match(/vimeo\.com\/(\d+)/) )
 			{
 				var clip_id = url.match(/vimeo\.com\/(\d+)/)[1];
 				var embed_html = '<object width="400" height="225"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo..com&amp;show_title=1&show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id='+clip_id+'&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=00ADEF&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="allywas" width="400" height="255"></embed></object>'
 				$t.replaceWith(embed_html);
 			}
-			else if( url.match('twitvid.com/\.+') )
+			else if( video_okay && url.match('twitvid.com/\.+') )
 			{
 				var embed_url = 'http://' + url.replace('twitvid.com/','twitvid.com/player/');
 				$t.addClass('expanded');
 				$t.html('<object width="425" height="344"><param name="movie" value="'+embed_url+'"></param><param name="allowscriptaccess" value="always"></param><param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="'+embed_url+'" quality="high" allowscriptaccess="always" allowNetworking="all" allowfullscreen="true" wmode="transparent" height="344" width="425"></object>');
 			}
-			else if( url.match('yfrog\.com/([0-9a-zA-Z]+)') )
+			else if( images_okay && url.match('yfrog\.com/([0-9a-zA-Z]+)') )
 			{
 				var pic = url.match('yfrog\.com/([0-9a-zA-Z]+)');
 				$t.addClass('expanded');
 				if (pic[1])
 					$t.html('<img class="tnt-image" alt="' + url + '" src="http://yfrog.com/'+pic[1]+'.th.jpg" />')
 			}
-			else if( url.match('znl.me/\.+') )
+			else if( images_okay && url.match('znl.me/\.+') )
 			{
 				$t.html('<img class="tnt-image" src="http://www.zannel.com/webservices/content/'+ url_parts[1] +'/Image-568x758-JPG.jpg" />')
 				$t.addClass('expanded');
 			}
-			else if( url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)') )
+			else if( images_okay && url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)') )
 			{
 				var pic = url.match('bcphotoshare\.com/photos/[0-9]+/([0-9]+)');
 				$t.addClass('expanded');
 				if( pic[1] )
 					$t.html('<img class="tnt-image" alt="'+url+'" src="http://images.bcphotoshare.com/storages/' + pic[1] +'/thumbnail.jpg" />');
 			}
-			else if( url.match('1day1shot\.jp/photos/') )  
+			else if( images_okay && url.match('1day1shot\.jp/photos/') )  
 			{  
 				tnt_twitter.ajax({  
 					url: $t.attr('href'),  
@@ -1781,27 +1634,28 @@ tnt_twitter = {
 					}  
 				});  
 			}
-			else if( url.match('twitvideo.jp/\.+') )
+			else if( images_okay && url.match('twitvideo.jp/\.+') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" src="http://twitvideo.jp/img/display/'+ url_parts[1] + '" />');
 			}
-			else if( url.match('\.(jpg|jpeg|gif|png)$') )
+			else if( images_okay && url.match('\.(jpg|jpeg|gif|png)$') )
 			{
 				$t.addClass('expanded');
 				$t.html('<img class="tnt-image" alt="'+url+'" src="http://'+url+'" />')
 			}
-			else if( url.match('\.(mp3|ogg|wav)$') )
+			else if( audio_okay && url.match('\.(mp3|ogg|wav)$') )
 			{
 				$t.addClass('expanded');
 				$t.after('<br /><object type="application/x-shockwave-flash" data="'+ audio_player +'" width="160" height="20"><param name="wmode" value="transparent" /><param name="movie" value="'+ audio_player +'" /><param name="flashvars" value="'+$.param({'mp3':$t.attr('href')})+'" /></object>');
 			}
-			else if( url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
+			else if( images_okay && url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/) )
 			{
 				pid = url.match(/flickr\.com\/photos\/[^\/]+\/(\d+)/);
 				$t.addClass('expanded');
 				if( pid.length == 2 )
 				{
+					/*
 					tnt_twitter.ajax({
 							url: $t.attr('href'),
 							callback:function(resp) {
@@ -1818,38 +1672,48 @@ tnt_twitter = {
 								}
 							}
 					});
+					*/
+          tnt_twitter.ajax({
+              url: 'http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&photo_id='+pid[1]+'&api_key='+ tnt_twitter.flickr_api_key,
+              callback:function(resp) {
+                if( resp.status != 200 ) return;
+                resp = resp.responseText;
+								thumb = resp.match('size label="Small"(.*source="(.*?)")');
+								if( thumb )
+								{
+	                $t.html('<img class="tnt-image" '+ thumb[1].replace('source','src') + '/>' )
+								}
+              }
+          });
 				}
 			}
-			else if( url.match('tweetphoto.com/\.+') )
+			else if( images_okay && url.match('tweetphoto.com/\.+') )
 			{
+				var image_id = url_parts[1];
+				$t.addClass('expanded');
 				tnt_twitter.ajax({
-					url: $t.attr('href'),
+					url: 'http://tweetphotoapi.com/api/tpapi.svc/photos/'+image_id,
 					callback:function(resp){
 						resp = resp.responseText;
-						var img = resp.between('<center>','</center>');
-						img = $(img).addClass('tnt-image')
-						$t.html(img).addClass('expanded');
+						var medium = $(resp).find('MediumImageUrl').text();
+						var thumb = $(resp).find('ThumbnailUrl').text();
+						var title = $(resp).find('Message').text();
+					  $t.html('<img class="tnt-image" src="'+thumb+'" title="'+ title +'" alt="'+ title +'" />');
 					}
 				})
 			}
-			else if( images_okay && domain == 'twitgoo.com' )
+			else if( images_okay && domain == 'twitgoo.com' && url_parts.length == 2 )
 			{
-				if(url_parts.length == 2)
-				{
-					tnt_twitter.ajax({
-							url: "http://twitgoo.com/api/message/info/" + url_parts[1],
-							callback:function(resp) {
-								if( resp.status != 200 ) return;
-								resp = resp.responseText;
-								
-								var src = resp.between('<thumburl>', '</thumburl>');
-								if( src.length > 0 &&  src.match('\.(jpg|jpeg|gif|png)') )
-								{
-									$t.html('<img class="tnt-image" src="'+src+'" />');
-								}
-							}
-					});
-				}				
+				$t.addClass('expanded')
+				tnt_twitter.ajax({
+					url: "http://twitgoo.com/api/message/info/" + url_parts[1],
+					callback:function(resp) {
+						if( resp.status != 200 ) return;
+						resp = resp.responseText;
+						var src = resp.between('<thumburl>', '</thumburl>');
+						$t.html('<img class="tnt-image" alt="'+$t.attr('href')+'" src="'+src+'" />');
+					}
+				});	
 			}
 			else if( domain == 'hellotxt.com' && url_parts[1] == 'i' )
 			{
@@ -1986,13 +1850,13 @@ tnt_twitter = {
 		var user = reply.user.screen_name;//alias
 		var img = '';
 		if( reply.user.profile_image_url )
-			img = '<a href="/'+  user +'"><img class="photo fn" width="24" src="'+(reply.user.profile_image_url + '').replace(/_([a-z]+).(jpg|jpeg|gif|png)$/i,'_mini.$2')+'" /></a>'
+			img = '<a class="tweet-url username" href="/'+  user +'"><img class="photo fn" width="24" src="'+(reply.user.profile_image_url + '').replace(/_([a-z]+).(jpg|jpeg|gif|png)$/i,'_mini.$2')+'" /></a>'
 		var klass = 'status u-'+user;
 		if( reply.in_reply_to_status_id ) klass += ' status-reply';
 		
 		var reply_html = '<div id="status_'+reply.id+'" class="'+ klass +'">'
 		reply_html += '<span class="entry-content">'+img
-		reply_html += ' <a href="/'+ user +'">'+ user +'</a>: ' + reply.text
+		reply_html += ' <a class="tweet-url username" href="/'+ user +'">'+ user +'</a>: ' + reply.text
 		reply_html += '</span><!--/.entry-content-->'
 		reply_html += '<span class="meta entry-meta" style="display:inline">'
 		reply_html += '<a rel="bookmark" class="entry-date" href="'+ tnt_twitter.twitter_url +'/'+user+'/status/'+ reply.id +'"> <span title="'+ reply.created_at +'" class="published">#</span></a>';
@@ -2073,67 +1937,6 @@ tnt_twitter = {
 			GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
 		},0);
 	},
-	add_user_to_group:function(user,group){
-		if( !group || !user ) return false;
-		user = user.toLowerCase();
-		tnt_twitter.group_cache[group][user] = user
-		window.setTimeout(function(){
-			GM_setValue('tnt_twitter.group_cache',uneval(tnt_twitter.group_cache));
-		},0);
-	},
-	remove_user_from_group:function(user,group){
-		if( !group || !user || !tnt_twitter.group_cache[group] ) return false;
-		user = user.toLowerCase();
-		delete tnt_twitter.group_cache[group][user]
-		window.setTimeout(function(){
-			GM_setValue('tnt_twitter.group_cache',uneval(tnt_twitter.group_cache));
-		},0);
-	},
-	group_create:function(group){
-		if( group && !tnt_twitter.group_cache[group] ) tnt_twitter.group_cache[group] = {}
-		window.setTimeout(function(){
-			GM_setValue('tnt_twitter.group_cache',uneval(tnt_twitter.group_cache));
-		},0);
-		$group_selects = $('.group-select');
-		if( $group_selects.length > 0 )
-		{
-			$group_selects.html(tnt_twitter.group_get_opts());
-		}
-	},
-	group_get_opts:function(){
-		var options = '<option value="create">Create a Group</option>';
-		$.each(tnt_twitter.group_cache,function(name,members){
-			options += '<option value="'+ name +'">'+name+'</option>'
-		});
-		return options;
-	},
-	group_get_list:function(user){
-		var groups = Array();
-		$.each(tnt_twitter.group_cache,function(name,members){
-			if( tnt_twitter.group_cache[name][user] ) groups.push(name);
-		});
-		return groups;
-	},
-	render_group_list:function(user,$target)
-	{
-		if( !user ) return;
-		user = user.toLowerCase();
-		var groups = tnt_twitter.group_get_list(user);	
-		if( groups.length > 0 )
-		{
-			var prefix = '<span class="tnt-group"><a user="'+user+'" title="remove user this group" href="#">[x]</a> ';
-			var suffix = '</span>'
-			$target.html(prefix + groups.join(suffix+', '+ prefix) + suffix)
-
-			$target.find('.tnt-group a').click(function(){
-				var user = $(this).attr('user');
-				tnt_twitter.remove_user_from_group(user,$(this).parent().text().replace('[x] ',''));
-				tnt_twitter.render_group_list(user,$target);
-				return false
-			});
-			
-		} else $target.html('');
-	},
 	save_usernames:function(friends){
 		$.each(friends,function(idx,friend){
 			if( friend.match('twitter.com') )
@@ -2177,37 +1980,9 @@ tnt_twitter = {
 			if( typeof callback == "function" ) callback();
 		});
 	},
-	group_search:function( query, callback )
-	{
-		var search_url = query.replace('tnt-group:',tnt_twitter.yui_group_pipe);
-		window.setTimeout(function() {
-			GM_xmlhttpRequest({
-				method: "GET",
-				url:  search_url,
-				onload: function(resp) {
-					if( resp.status != 200 ) return [];
-					eval('var resp = ' + resp.responseText);
-					var tweets = {}
-					$.each(resp.value.items,function(idx,item){
-						tnt_twitter.tweet_get(item.link,function(tweet){
-							tweets[tweet.id] = tweet;
-							try {window.clearTimeout(callback_timer);} catch (e) {}
-							callback_timer = window.setTimeout(function(){
-								if( typeof callback == "function" ) callback({resp:resp,tweets:tweets});
-							},600);
-						});				
-					});
-					$('#pagination').hide()
-				}
-			});
-		}, 0);
-		
-		
-	},
 	search:function( query, callback )
 	{
 		var search_url = query.indexOf( tnt_twitter.twitter_url +'/search?q=') == 0 ? query : 'http://search.twitter.com/search.json?q=' + encodeURIComponent(query)
-		if( query.indexOf('tnt-group:') > -1 ) tnt_twitter.group_search(query, callback);
 
 		window.setTimeout(function() {
 			GM_xmlhttpRequest({
