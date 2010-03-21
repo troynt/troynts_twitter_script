@@ -309,7 +309,6 @@ tnt_twitter = {
       'autopagination':'Pull in next page when you reach the bottom of page',
       'clickable_backgrounds':'ClickableNow backgrounds, see http://clickablenow.com/',
       'url_expansion':'Expand URLs in tweets',
-      'hash_tags':'link hashtags',
       'show_replies':'Show nested replies for tweets',
       'shrink_urls':'When tweet is over limit, urls are shrunk',
       'search':'Adds search box in sidebar',
@@ -333,7 +332,6 @@ tnt_twitter = {
       'general':{
         'autopagination':1,
         'url_expansion':1,
-        'hashtags':1,
         'show_replies':1,
         'video_embed':1,
         'audio_embed':1,
@@ -700,7 +698,7 @@ tnt_twitter = {
     var $settings = $('#tnt-settings');
     
     html = '<small style="margin-top:1em">'+
-        '<b>Version</b> '+CheckScriptForUpdate.version+' ( <a target="_blank" href="http://sn.im/troys_twitter_script">Homepage</a> )<br />' +
+        '<b>Version</b> '+CheckScriptForUpdate.version+' ( <a target="_blank" href="http://userscripts.org/scripts/show/40617">Homepage</a> )<br />' +
         '<b>By</b> <a target="_blank" href="'+ tnt_twitter.twitter_url +'/troynt">@troynt</a><br />' +
         '<b><a title="Support development of this project" href="http://pledgie.com/campaigns/6279">Donate! :)</a></b><br />' +
         'Hover over setting for brief description.<br />Refresh after you have made your changes. </small>';
