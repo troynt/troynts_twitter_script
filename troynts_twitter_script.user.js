@@ -393,7 +393,9 @@ tnt_twitter = {
 
     /* tweets */
     /* highlight tweets to you */
-    var css = ".hentry.to_me { background:#ffe; }";
+    var css = '.hentry.to_me { background:#ffe; }';
+    
+    css += '.hentry { clear:both; overflow:auto; }';
     
     /* media embed */
     css += '.tnt-image { float:right; vertical-align:middle; }';
@@ -1118,7 +1120,7 @@ tnt_twitter = {
       {
         var s = $status.get(0);
         s.focus();
-        var v = $status.val().replace(cur_word,cur_match);
+        var v = $status.val().replace(eval('/' + cur_word + '($| )/i'),cur_match);
         $status.val(v + ' ');
         $status_autocomplete.hide();
         return true;  
@@ -1553,17 +1555,30 @@ tnt_twitter = {
         var video_params = $.param({
           rel: 0,
           border: 0,
-          autoplay: 1
+          autoplay: 1,
+          fs: 1 //fullscreen
         });
-        var embed_html = '<object width="425" height="373"><param name="movie" value="http://www.youtube.com/v/' +
-              video_id + '&' + video_params +'"></param><param name="wmode"' +
-              'value="transparent"></param><embed src="http://www.youtube.com/v/' + video_id + '&'+ video_params +'" type="application/x-shockwave-flash" wmode="transparent" width="425" height="373"></embed></object>';
+        
+        var vid_w = 425;
+        var vid_h = 258;
+        
+        var vid_url = 'http://www.youtube.com/v/' + video_id + '&'+ video_params;
+        var embed_html = '<object width="'+ vid_w +'" height="'+ vid_h +'">'
+          + '<param name="movie" value="'+ vid_url +'"></param>'
+          + '<param name="allowscriptaccess" value="always"></param>'
+          //+ '<param name="allowFullScreen" value="true"></param>'
+          + '<embed src="'+ vid_url +'" type="application/x-shockwave-flash" allowscriptaccess="always" '
+          //+ 'allowfullscreen="true" '
+          + 'width="'+ vid_w +'" height="'+ vid_h +'"></embed></object>';
+        
         $t.addClass('expanded');
         $t.addClass('tnt-youtube-video-thumb');
         $t.html('<img class="tnt-play-icon" src="'+icons.play+'" /><img title="click to play" src="http://img.youtube.com/vi/'+ video_id +'/1.jpg" />');
         $t.click(function(){
           $t.removeClass('tnt-youtube-video-thumb');
-          $t.replaceWith(embed_html);
+          window.setTimeout(function(){
+        	  $t.replaceWith(embed_html);
+          },100);
           return false;
         });
         $t.children('img').click(function(){
