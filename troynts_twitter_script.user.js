@@ -619,7 +619,7 @@ tnt_twitter = {
       url:'http://twitter.com/users/show/'+user+'.json',
       callback:function(resp)
       {
-        eval('var resp = ' + resp.responseText);
+        resp = JSON.parse(resp.responseText);
         var created_at = new Date(resp.created_at)
         var m = created_at.getMonth()+1;
         var d = created_at.getDate();
@@ -702,7 +702,7 @@ tnt_twitter = {
       tnt_twitter.friend_cache = friends;
       tnt_twitter.save_usernames(friends);
       window.setTimeout(function(){
-        GM_setValue('tnt_twitter.friend_cache',JSON.stringify(tnt_twitter.friend_cache));
+        GM_setValue('tnt_twitter.friend_cache',uneval(tnt_twitter.friend_cache));
       },0);
     });
   },
@@ -747,7 +747,7 @@ tnt_twitter = {
       if( confirm('Are you sure you would like to reset your settings?') )
       {
         window.setTimeout(function(){
-          GM_setValue('tnt_twitter.settings',JSON.stringify(tnt_twitter.default_settings));
+          GM_setValue('tnt_twitter.settings',uneval(tnt_twitter.default_settings));
           alert('Settings reset! Please refresh.');
         },0);
       }
@@ -810,7 +810,7 @@ tnt_twitter = {
   {
     eval('tnt_twitter.settings.'+ability+' = '+value)
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.settings',JSON.stringify(tnt_twitter.settings));
+      GM_setValue('tnt_twitter.settings',uneval(tnt_twitter.settings));
     },0);
   },
   /**
@@ -1100,7 +1100,7 @@ tnt_twitter = {
             onload: function(resp)
             {
               if( resp.status != 200 ) return false;
-              eval('var resp = ' + resp.responseText);
+              var resp = JSON.parse(resp.responseText);
               if( resp.statusCode == "OK" )
               {
                 if (resp.results[url]['shortUrl'].length < url.length)
@@ -1925,13 +1925,13 @@ tnt_twitter = {
   save:function(store,key,value,callback){
     tnt_twitter[store][key] = value;
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.'+store,JSON.stringify(tnt_twitter[store]));
+      GM_setValue('tnt_twitter.'+store,uneval(tnt_twitter[store]));
       if( typeof callback == "function" ) callback();
     },100);
   },
   save_tweets:function(tweets){
     tnt_twitter.tweet_cache = $.merge(tnt_twitter.tweet_cache,tweets);
-    window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',JSON.stringify(tnt_twitter.tweet_cache)); },0);
+    window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',uneval(tnt_twitter.tweet_cache)); },0);
   },
   save_username:function(friend){
     if( friend.match('twitter.com') )
@@ -1939,7 +1939,7 @@ tnt_twitter = {
     friend = friend.toLowerCase();
     tnt_twitter.username_cache[friend] = friend;
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.username_cache',JSON.stringify(tnt_twitter.username_cache));
+      GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
     },0);
   },
   save_usernames:function(friends){
@@ -1950,7 +1950,7 @@ tnt_twitter = {
       tnt_twitter.username_cache[friend] = friend;
     });
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.username_cache',JSON.stringify(tnt_twitter.username_cache));
+      GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
     },0);
   },
   cache_ajax:function(options)
