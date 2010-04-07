@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name    @troynt's Twitter Script
 // @namespace  http://twitter.com/troynt
 // @description  Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version    11.3
+// @version    11.4
 // @include    http://twitter.com*
 // @include    http://www.twitter.com*
 // @include    https://twitter.com*
@@ -78,7 +78,7 @@ console.log = function(msg){};
 if(typeof unsafeWindow.console != 'undefined')
   console = unsafeWindow.console;
 
-GM_registerMenuCommand("Clear Twitter Cache", function(){
+GM_registerMenuCommand("Clear @troynt's Twitter Script Cache", function(){
   tnt_twitter.clear_cache();
   alert('Cache Cleared');
 });
@@ -288,14 +288,14 @@ var clickablenow = function () {
 /*
 Note: remember to 
 ADD
-j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms, pic.gd, ez.ly to short_url_domains
+j.mp, flic.kr, shrt.fr, mitp.ly, lnk.ms, pic.gd, ez.ly goo.gl wp.me read.ly to short_url_domains
 REMOVE
 yfrog.com
 when updating
 */
 tnt_twitter = {
-  short_url_domains:'bit.ly tinyurl.com j.mp ez.ly flic.kr pic.gd lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
-  longurl_api_url: 'http://api.longurl.org/v1/',
+  short_url_domains:'bit.ly tinyurl.com j.mp goo.gl ez.ly flic.kr wp.me read.ly short.ie pic.gd lnk.ms shrt.fr mitp.ly 0rz.tw 2tu.us 307.to 6url.com a.gg a.nf a2n.eu ad.vu adf.ly adjix.com alturl.com atu.ca azqq.com b23.ru b65.com bacn.me bloat.me budurl.com buk.me canurl.com chilp.it clck.ru cli.gs cliccami.info clipurl.us clop.in cort.as cuturls.com decenturl.com digg.com doiop.com dwarfurl.com easyurl.net eepurl.com ewerl.com ff.im fff.to fhurl.com flingk.com flq.us fly2.ws fwd4.me fwdurl.net g8l.us gl.am go.9nl.com goshrink.com hex.io href.in htxt.it hugeurl.com hurl.ws icanhaz.com idek.net is.gd jijr.com kissa.be kl.am klck.me korta.nu l9k.net liip.to liltext.com lin.cr linkgap.com liurl.cn ln-s.net ln-s.ru lnkurl.com lru.jp lu.to lurl.no memurl.com merky.de migre.me minilien.com moourl.com myurl.in nanoref.com nanourl.se netnet.me ni.to nn.nf notlong.com nutshellurl.com o-x.fr offur.com omf.gd onsaas.info ow.ly parv.us peaurl.com ping.fm piurl.com plumurl.com plurl.me pnt.me poprl.com post.ly ptiturl.com qlnk.net qurlyq.com r.im rb6.me rde.me reallytinyurl.com redir.ec redirects.ca redirx.com ri.ms rickroll.it rubyurl.com s3nt.com s7y.us shink.de short.ie short.to shortenurl.com shorterlink.com shortlinks.co.uk shoturl.us shredurl.com shrinkify.com shrinkr.com shrinkurl.us shrtnd.com shurl.net shw.me smallr.com smurl.com sn.im sn.vc snadr.it snipr.com snipurl.com snurl.com sp2.ro spedr.com srnk.net srs.li starturl.com surl.co.uk ta.gd tcrn.ch tgr.me tighturl.com tiny.cc tiny.pl tinylink.com to.ly togoto.us tr.im tra.kz trunc.it tubeurl.com twitclicks.com twitterurl.net twiturl.de twurl.cc twurl.nl u.mavrev.com u.nu u76.org ub0.cc ulu.lu updating.me ur1.ca url.az url.co.uk url.ie urlborg.com urlbrief.com urlcut.com urlcutter.com urlhawk.com urlkiss.com urlpire.com urlvi.be urlx.ie virl.com wapurl.co.uk wipi.es x.se xil.in xrl.in xrl.us xurl.jp xzb.cc yatuc.com yep.it zi.ma zurl.ws zz.gd zzang.kr',
+  short_url_re:new RegExp("^(http(s?)://(307\.to|adjix\.com|b23\.ru|bacn\.me|bit\.ly|bloat\.me|budurl\.com|cli\.gs|clipurl\.us|cort\.as|digg\.com|dwarfurl\.com|fb\.me|ff\.im|fff\.to|href\.in|idek\.net|is\.gd|j\.mp|kl\.am|korta\.nu|lin\.cr|livesi\.de|ln\-s\.net|loopt\.us|lost\.in|memurl\.com|merky\.de|migre\.me|moourl\.com|nanourl\.se|om\.ly|ow\.ly|peaurl\.com|ping\.fm|piurl\.com|plurl\.me|pnt\.me|poprl\.com|post\.ly|rde\.me|reallytinyurl\.com|redir\.ec|retwt\.me|rubyurl\.com|short\.ie|short\.to|smallr\.com|sn\.im|sn\.vc|snipr\.com|snipurl\.com|snurl\.com|su\.pr|tiny\.cc|tinysong\.com|tinyurl\.com|togoto\.us|tr\.im|tra\.kz|trg\.li|twurl\.cc|twurl\.nl|u\.mavrev\.com|u\.nu|ur1\.ca|url\.az|url\.ie|urlx\.ie|w34\.us|xrl\.us|yep\.it|zi\.ma|zurl\.ws)/[a-zA-Z0-9_-]+)$|((^http(s?)://[a-zA-Z0-9_-]+\.notlong\.com)|(^http(s?)://[a-zA-Z0-9_-]+\.qlnk\.net)|(^http(s?)://chilp\.it/[?][a-zA-Z0-9_-]+)|(^http(s?)://goo\.gl/fb/[a-zA-Z0-9_-]+)|(^http(s?)://trim\.li/nk/[a-zA-Z0-9_-]+)|(^http(s?)://url4\.eu/[a-zA-Z0-9_-]+))[/]?$"),
   bitly_api_url: 'http://api.j.mp/',
   bitly_api_key: '?version=2.0.1&login=troynt&apiKey=R_db302f29abf36ff94cb2cb6de8a3de41',
   flickr_api_key: '2a9d986b3c683b9cf4ecb69b0e80f8f8',
@@ -370,7 +370,7 @@ tnt_twitter = {
         
     $ = unsafeWindow.jQuery;
     jQuery = $;
-
+        
     var options = eval(GM_getValue('tnt_twitter.settings')) || {};
     tnt_twitter.settings = $.extend({},tnt_twitter.default_settings, options );
     
@@ -384,12 +384,41 @@ tnt_twitter = {
     tnt_twitter.social_link_cache = eval(GM_getValue('tnt_twitter.social_link_cache')) || {};
     tnt_twitter.social_graph_cache = eval(GM_getValue('tnt_twitter.social_graph_cache')) || {};
     
+    var links_to_expand = [];
+    $('a.tweet-url.web').filter(function(){ return this.href.match(tnt_twitter.short_url_re) && typeof tnt_twitter.url_cache[this.href] == 'undefined'; })
+      .each(function(){ links_to_expand.push(this.href); })
+    var links_to_expand_param_string = '';
+    for (var i = 0; i < links_to_expand.length; i++) {
+      links_to_expand_param_string += 'q=' + encodeURI(links_to_expand[i]);
+      if (i < links_to_expand.length - 1)
+        links_to_expand_param_string += '&'
+    }
+    
+    //try to expand as many urls as possible early
+    tnt_twitter.ajax({
+        url:(('https:' == document.location.protocol) ? 'https' : 'http') + '://longurlplease.appspot.com/api/v1.1?' + links_to_expand_param_string,
+        callback: function(resp) {
+          if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
+          resp = JSON.parse(resp.responseText);
+          
+          for( url in resp )
+          {
+            var link = {
+              //title:'', // not used by longurlplease
+              long_url: resp[url],
+            }
+            if( resp[url] != null )  tnt_twitter.save('url_cache',url,link); //save them to use later
+          }
+        }
+    });
+    
+    
     $session_user_id = $('meta[name=session-user-screen_name]');
     if( $session_user_id.length == 1 )
     {
       tnt_twitter.logged_in = true;
       tnt_twitter.user = $session_user_id.attr('content').toLowerCase();
-    }
+    }    
 
     /* tweets */
     /* highlight tweets to you */
@@ -462,12 +491,6 @@ tnt_twitter = {
     $('.hentry,.person').addClass('has-twttr-events');//this is so I don't add twttr events to things already on the page.
     
     GM_addStyle(css);
-    if ($.livequery) {
-      $('.search-link').livequery('click', function(){
-        tnt_twitter.do_search($(this).text());
-        return false;
-      });
-    }
     
     window.setInterval(function(){
       tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet').slice(0,2));
@@ -1488,18 +1511,20 @@ tnt_twitter = {
         return;
       }
       
+      var href = $t.attr('href');
       var url = $t.attr('href').replace('http://','');
       var url_parts = url.split('/');
       var domain = url_parts.length > 1 ? url_parts[0] : url;
+      nowww_domain = domain.replace('www.','');
 
-      if( tnt_twitter.url_cache[url] )
+      if( tnt_twitter.url_cache[href] && tnt_twitter.url_cache[href].long_url )
       {
-        var long_url = tnt_twitter.url_cache[url].long_url;
-        var title = tnt_twitter.url_cache[url].title || tnt_twitter.url_cache[url].long_url
+        var long_url = tnt_twitter.url_cache[href].long_url;
+        var title = tnt_twitter.url_cache[href].title || long_url
 
         if( !long_url.match(/https?/) ) long_url = 'http://'+long_url;
         $t.attr('href',long_url);
-        $t.attr('title',title + ' ('+ long_url +')');
+        $t.attr('title',title);
         if( title.length > 33 )
           $t.text($.trim(title.slice(0,30))+'...');
         else
@@ -1507,21 +1532,21 @@ tnt_twitter = {
         $t.addClass('expanded');
       }
       
-      url = $t.attr('href').replace('http://','');
-      url_parts = url.split('/');
-      domain = url_parts.length > 1 ? url_parts[0] : url;
-      nowww_domain = domain.replace('www.','');
-                    
-      if( tnt_twitter.short_url_domains.indexOf(nowww_domain) > -1 && !( domain == 'ping.fm' && url_parts[1] == 'p' ) )
+
+      if( (  tnt_twitter.short_url_domains.indexOf(nowww_domain) > -1 || href.match(tnt_twitter.short_url_re) ) && !( domain == 'ping.fm' && url_parts[1] == 'p' ) )
       {
         tnt_twitter.ajax({
-          url:  'http://api.longurl.org/v1/expand?format=json&url=' + encodeURIComponent(url),
+          url:(('https:' == document.location.protocol) ? 'https' : 'http') + '://longurlplease.appspot.com/api/v1.1?' + $.param({q: href }),
           callback: function(resp) {
             if( resp.status != 200 || typeof(resp.responseText) === 'undefined' ) return resp;
-            var link = eval('(' + resp.responseText + ')');
-            if (typeof(link.messages) !== 'undefined') { return resp; }
-                          
-            tnt_twitter.save('url_cache',url,link,function(){
+            resp = JSON.parse(resp.responseText);
+
+            var link = {
+            	//title:'', // not used by longurlplease
+            	long_url: resp[$t.attr('href')],
+            }
+            	            
+            tnt_twitter.save('url_cache',href,link,function(){
               tnt_twitter.expand_urls($tweet);
             });
             
