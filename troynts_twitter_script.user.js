@@ -670,7 +670,7 @@ tnt_twitter = {
         callback:function(resp){
           if( resp.status != 200 ) return;
           
-          if( resp.responseText.match('/direct_messages/create/'+user) )
+          if( resp.responseText.match('/direct_messages/create/'+user,'i') )
           {
             tnt_twitter.save('friend_cache',user,user,function(){
               tnt_twitter.friend_show_icon(user,callback);
