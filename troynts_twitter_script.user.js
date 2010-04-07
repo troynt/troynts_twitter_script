@@ -311,7 +311,6 @@ tnt_twitter = {
       'url_expansion':'Expand URLs in tweets',
       'show_replies':'Show nested replies for tweets',
       'shrink_urls':'When tweet is over limit, urls are shrunk',
-      'search':'Adds search box in sidebar',
       'video_embed':'Embed video into tweets',
       'audio_embed':'Embed audio player into tweets',
       'image_embed':'Embed images into tweets', 
@@ -319,7 +318,6 @@ tnt_twitter = {
       'notes':'Allows you to keep notes on users',
       'local_time':'Provide local time on user profiles',
       'map_location':'Map location of user if lat long are present',
-      'social_links':'Pulls in Social Links from Twellow.com',
       'hide_twitter_defs':'Hide Twitter Definitions',
       'friend_icons':'show smiley icons on friends ( users you follow and they follow back )',
       '@user_tab':'Searches for @user allowing you to view their mentions and replies.',
@@ -343,7 +341,6 @@ tnt_twitter = {
       },
       'home':{
         'autocomplete':1,
-        'search':1,
         'shrink_urls':1
       },
       'profiles':{
@@ -705,7 +702,7 @@ tnt_twitter = {
       tnt_twitter.friend_cache = friends;
       tnt_twitter.save_usernames(friends);
       window.setTimeout(function(){
-        GM_setValue('tnt_twitter.friend_cache',uneval(tnt_twitter.friend_cache));
+        GM_setValue('tnt_twitter.friend_cache',JSON.stringify(tnt_twitter.friend_cache));
       },0);
     });
   },
@@ -750,7 +747,7 @@ tnt_twitter = {
       if( confirm('Are you sure you would like to reset your settings?') )
       {
         window.setTimeout(function(){
-          GM_setValue('tnt_twitter.settings',uneval(tnt_twitter.default_settings));
+          GM_setValue('tnt_twitter.settings',JSON.stringify(tnt_twitter.default_settings));
           alert('Settings reset! Please refresh.');
         },0);
       }
@@ -813,7 +810,7 @@ tnt_twitter = {
   {
     eval('tnt_twitter.settings.'+ability+' = '+value)
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.settings',uneval(tnt_twitter.settings));
+      GM_setValue('tnt_twitter.settings',JSON.stringify(tnt_twitter.settings));
     },0);
   },
   /**
@@ -1353,18 +1350,6 @@ tnt_twitter = {
       else if( $tweet.hasClass('u-fxxxmylife ') )
         tnt_twitter.tweet_process_fxxxmylife($tweet);
 
-    });
-  },
-  tweet_process_secrettweet:function($tweet)
-  {
-    try { var st_id = $tweet.find('.entry-content:first,.msgtxt:first').text().match('^([0-9]+)')[1] }
-    catch( err ){ return; }
-    
-    $tweet.find('.entry-content:first,.msgtxt:first').find('.web:last').remove();
-    tnt_twitter.search('@secrettweet '+ st_id +'~',function(result){
-      $.each(result.tweets,function(tweet_id,tweet){
-        tnt_twitter.tweet_load_reply(tweet,$tweet)
-      });
     });
   },
   tweet_process_fxxxmylife:function($tweet)
@@ -1940,13 +1925,13 @@ tnt_twitter = {
   save:function(store,key,value,callback){
     tnt_twitter[store][key] = value;
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.'+store,uneval(tnt_twitter[store]));
+      GM_setValue('tnt_twitter.'+store,JSON.stringify(tnt_twitter[store]));
       if( typeof callback == "function" ) callback();
     },100);
   },
   save_tweets:function(tweets){
     tnt_twitter.tweet_cache = $.merge(tnt_twitter.tweet_cache,tweets);
-    window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',uneval(tnt_twitter.tweet_cache)); },0);
+    window.setTimeout(function(){ GM_setValue('tnt_twitter.tweet_cache',JSON.stringify(tnt_twitter.tweet_cache)); },0);
   },
   save_username:function(friend){
     if( friend.match('twitter.com') )
@@ -1954,7 +1939,7 @@ tnt_twitter = {
     friend = friend.toLowerCase();
     tnt_twitter.username_cache[friend] = friend;
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
+      GM_setValue('tnt_twitter.username_cache',JSON.stringify(tnt_twitter.username_cache));
     },0);
   },
   save_usernames:function(friends){
@@ -1965,75 +1950,8 @@ tnt_twitter = {
       tnt_twitter.username_cache[friend] = friend;
     });
     window.setTimeout(function(){
-      GM_setValue('tnt_twitter.username_cache',uneval(tnt_twitter.username_cache));
+      GM_setValue('tnt_twitter.username_cache',JSON.stringify(tnt_twitter.username_cache));
     },0);
-  },
-  load_search:function(query,callback,append)
-  {
-    tnt_twitter.search(query,function(result){
-      tweets = result.tweets;
-      if( !append )
-        $('#timeline').children().remove();
-        
-      $.each(tweets,function(idx,tweet){
-        tnt_twitter.load_tweet(tweet);
-      });
-      $('#loader').hide();
-      if( result.resp.next_page )
-      {
-        var next_page = 'http://search.twitter.com/search'+result.resp.next_page;
-        $('#pagination .section_links[rel~=prev],#more').attr('href',next_page)
-        $(window).unbind('scroll').scroll(function(){
-          if( tnt_twitter.is_scroll_bottom() )
-          {
-            next_page = next_page.replace('http://search.twitter.com/search','http://search.twitter.com/search.json');
-            tnt_twitter.load_search(next_page,function(){},true);
-          }
-          $('#pagination').show()
-        })
-      }
-      else
-      {
-        $(window).unbind('scroll');
-        $('#more').hide();
-      }
-      if( typeof callback == "function" ) callback();
-    });
-  },
-  search:function( query, callback )
-  {
-    var search_url = query.indexOf( tnt_twitter.twitter_url +'/search?q=') == 0 ? query : 'http://search.twitter.com/search.json?q=' + encodeURIComponent(query)
-
-    window.setTimeout(function() {
-      GM_xmlhttpRequest({
-        method: "GET",
-        url:  search_url,
-        onload: function(resp) {
-          if( resp.status != 200 ) return [];
-          eval('var resp = ' + resp.responseText);
-          
-          var js_tweets = resp.results;
-          var tweets = {}
-          var callback_timer;
-          
-          $.each(js_tweets,function(idx,js_tweet){
-            if( !js_tweet.to_user_id )//save it isn't in reply to something else. Twitter Search JSON format is missing this attribute.
-              tnt_twitter.tweet_save_args(js_tweet.id,js_tweet.from_user,js_tweet.profile_image_url,tnt_twitter.linkify_plain(js_tweet.text),js_tweet.created_at);
-              
-            tnt_twitter.tweet_get(tnt_twitter.twitter_url+'/'+js_tweet.from_user+'/status/'+js_tweet.id,function(tweet){
-              tweets[tweet.id] = tweet;
-              if( js_tweet.created_at )
-                tweet.created_at = js_tweet.created_at
-              try {window.clearTimeout(callback_timer);} catch (e) {}
-              callback_timer = window.setTimeout(function(){
-                if( typeof callback == "function" ) callback({resp:resp,tweets:tweets});
-              },600);
-            });
-          
-          })
-        }
-      });
-    }, 0);
   },
   cache_ajax:function(options)
   {
