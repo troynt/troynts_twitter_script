@@ -1289,9 +1289,15 @@ tnt_twitter = {
   {
     $tweets = $tweets.not('.processed-tweet');
     $tweets.addClass('processed-tweet');
-    $tweets.each(function(){
-      var $tweet = $(this);
-      var $content = $tweet.find('.entry-content:first,.msgtext:first');//search uses msgtext
+    tnt_twitter.tweet_process_roop($tweets, 0);
+    return;
+  },
+  tweet_process_roop:function($tweets, i){
+      if(i==$tweets.size()) return;
+
+      var $tweet = $($tweets.get(i));
+      
+	  var $content = $tweet.find('.entry-content:first,.msgtext:first');//search uses msgtext
       var tweet_id = $tweet.attr('id');
       var user = tnt_twitter.user_from_tweet($tweet)//single tweets don't get usernames for some reason
             
@@ -1350,7 +1356,7 @@ tnt_twitter = {
       else if( $tweet.hasClass('u-fxxxmylife ') )
         tnt_twitter.tweet_process_fxxxmylife($tweet);
 
-    });
+	  setTimeout(function(){tnt_twitter.tweet_process_roop($tweets, i+1);}, 0)
   },
   tweet_process_fxxxmylife:function($tweet)
   {
