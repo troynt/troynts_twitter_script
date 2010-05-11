@@ -3,7 +3,7 @@ scr_meta=<><![CDATA[
 // @name    @troynt's Twitter Script
 // @namespace  http://twitter.com/troynt
 // @description  Nested Replies, RT button, Custom Search Tabs, YouTube Embed, TwitPic Embed, URL Expansion, Hash Tag Search Links
-// @version    11.5
+// @version    11.6
 // @include    http://twitter.com*
 // @include    http://www.twitter.com*
 // @include    https://twitter.com*
@@ -421,7 +421,7 @@ tnt_twitter = {
     /* highlight tweets to you */
     var css = '.hentry.to_me { background:#ffe; }';
     
-    css += '.hentry { clear:both; overflow:auto; }';
+    css += '.hentry { clear:both; }';
     
     /* media embed */
     css += '.tnt-image { float:right; vertical-align:middle; }';
