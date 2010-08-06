@@ -500,9 +500,29 @@ tnt_twitter = {
     
     GM_addStyle(css);
     
-    window.setInterval(function(){
-      tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet').slice(0,2));
-    },2000);
+    //process the current set of tweets
+    tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet'));
+    
+    var timeline = document.getElementById('timeline');
+    if( timeline ) {
+      timeline.addEventListener('DOMNodeInserted',tnt_twitter.tweet_inserted, false);
+    }
+    
+    $('#content > div.wrapper > div.section').live('DOMNodeInserted',function(e){
+      try {
+        // check whether this is the timeline element is inserted
+        if ( e.target.nodeType == 1 && e.target.getAttribute('id') == 'timeline' ) {
+          // add a node insert handler
+          e.target.addEventListener('DOMNodeInserted',tnt_twitter.tweet_inserted, false);
+          
+          //process the new tweets
+          setTimeout( function() {
+            tnt_twitter.tweet_process($('#timeline .hentry').not('.processed-tweet'));
+          }, 1000);
+        }
+      } catch (e) {
+      }
+    })
         
     window.setInterval(function(){
       if( tnt_twitter.ajax_queue.length > 0 )
@@ -693,6 +713,12 @@ tnt_twitter = {
           }
         }
       });
+    }
+  },
+  tweet_inserted:function(event) {
+    var $target = $(event.target);
+    if( $target.not('.processed-tweet').length > 0 ) {
+      tnt_twitter.tweet_process($target)
     }
   },
   /**
