@@ -431,7 +431,7 @@ tnt_twitter = {
     }
     
     if( tnt_twitter.can('hide_retweets') ) {
-      css += '.status.share { display:none !important; }';
+      css += 'li.status.share { display:none !important; }';
     }
 	
     /* media embed */
